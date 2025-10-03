@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import brandingFFMain from '../images/branding-ff-main.png'
+import webFFHero from '../images/web-ff-hero.png'
+import brandingFFSecond from '../images/branding-ff-second.png'
+import webCarelaHero from '../images/web-carela-hero.png'
+import webCostaHero from '../images/web-costa-hero.png'
+import webCyberHero from '../images/web-cyber-hero.png'
+import webFusionFlowHero from '../images/web-fusionflow-hero.png'
+import webLawlyHero from '../images/web-lawly-hero.png'
+import webLinkedInHero from '../images/web-linkedin-hero.png'
+import webMondayLaunchHero from '../images/web-mondaylaunch-hero.png'
+import webMVPHero from '../images/web-mvp-hero.png'
+import webReadlyHero from '../images/web-readly-hero.png'
+import webRentalinduHero from '../images/web-rentalindu-hero.png'
+import webWolfMailHero from '../images/web-wolfmail-hero.png'
+
+---
+<div class="projects">
+            <h2>Projects</h2>
+            <div class="images">
+                <Image src={webReadlyHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webCyberHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={brandingFFMain} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={brandingFFSecond} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webFFHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webLawlyHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webCarelaHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webCostaHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webFusionFlowHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webMVPHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={webRentalinduHero} alt="branding asset for featherflow.com" width={626}/>
+            </div>
+</div>
+
+<style>
+    h2 {
+ font-size: 16.875px;
+ font-family: "Inter Variable", "Inter", sans-serif;
+ font-weight: 400;
+ margin-bottom: 8px;
+}
+
+.projects {
+    margin-bottom: 0px;
+    max-width: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+.images {
+    margin-top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    background-color: #f6f6f6;
+    border-radius: 9px;
+    gap: 9px;
+}
+</style>

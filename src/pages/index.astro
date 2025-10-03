@@ -1,16 +1,204 @@
 ---
-
+import Projects from '../components/Projects.astro'
+import Tools from '../components/Tools.astro'
 ---
 
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon light.png" media="(prefers-color-scheme: light)" />
+		<link rel="icon" type="image/png" href="/favicon dark.png" media="(prefers-color-scheme: dark)" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<link rel="stylesheet" href="style.css">
+		<title>deniz.studio</title>
+		<script>
+			// Function to update favicon based on color scheme
+			function updateFavicon() {
+				const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				const favicon = document.querySelector('link[rel="icon"]');
+				if (favicon) {
+					favicon.href = isDark ? '/favicon dark.png' : '/favicon light.png';
+				}
+			}
+
+			// Update favicon on page load
+			updateFavicon();
+
+			// Listen for color scheme changes
+			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+		</script>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<div class="container">
+        <div class="main">
+			<div class="title-cta">
+				<div class="titletext">
+					<h1 class="name">Hi I'm Deniz!</h1>
+					<p>Based in Wiesbaden, Germany I create modern and premium designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering beautiful and functional designs that drive real results for businesses like yours.</p>
+				</div>
+				<div class="buttons">
+
+					<div class="cta">
+						<a href="https://cal.com/denizkumral">Book a Call</a>
+					</div>
+					<div class="second-cta">
+						<a href="mailto:mail@deniz.studio">mail@deniz.studio</a>
+					</div>
+				</div>
+				</div>
+		<Tools />
+        <Projects />
+        </div>
+		<div class="links">
+			<a href="/imprint">Imprint</a>
+			<a href="/privacy">Privacy</a>
+			<a href="/photography">Photography</a>
+
+		</div>
+    </div>
 	</body>
 </html>
+
+<style>
+	@font-face {
+		font-family: 'Inter Variable';
+		src: url('/fonts/InterVariable.ttf') format('truetype');
+		font-weight: 100 900;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: "Inter Variable", "Inter", sans-serif;
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+}
+
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  justify-content: center;
+}
+
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  font-size: 14px;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+  color: #1e1e1e;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+  color: #1e1e1e;
+}
+
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+    margin-top: 24px;
+    max-width: 650px;
+	gap: 24px;
+	margin-bottom: 24px;
+}
+
+.main {
+    max-width: 650px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+.title-cta {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.name, p {
+ font-size: 15px;
+ font-weight: 400;
+ line-height: 1.55;
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.cta {
+	background-color: #1e1e1e;
+	width: fit-content;
+	color: #ffffff;
+	padding: 6px 14px 6px 14px;
+	border-radius: 64px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: all .3s ease-in-out;
+}
+
+.cta:hover {
+	color: #1e1e1e;
+	background-color: #f0f0f0;
+}
+
+.second-cta {
+	text-decoration: underline;
+}
+
+
+.links {
+	display: flex;
+	gap: 24px;
+    text-decoration: underline;
+}
+
+.links a:hover {
+    color: #7a7a7a;
+}
+
+</style>

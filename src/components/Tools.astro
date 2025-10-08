@@ -43,6 +43,7 @@ h3 {
 }
 .tool-container {
     max-width: 650px;
+    width: 100%;
 }
 
 .tools {
@@ -61,6 +62,7 @@ h3 {
     padding: 10px;
     border-radius: 6px;
     width: fit-content;
+    flex-shrink: 0;
 }
 
 .logo {
@@ -77,5 +79,15 @@ h3 {
     flex-direction: row;
     margin-bottom: -6px;
     gap: 22px;
+}
+
+@media (max-width: 480px) {
+    .tool {
+        gap: 16px;
+    }
+    
+    .logo-container {
+        padding: 8px;
+    }
 }
 </style>

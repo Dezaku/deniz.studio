@@ -1,6 +1,7 @@
 ---
 import Projects from '../components/Projects.astro'
 import Tools from '../components/Tools.astro'
+import Testimonials from '../components/Testimonials.astro'
 ---
 
 <html lang="en">
@@ -8,7 +9,7 @@ import Tools from '../components/Tools.astro'
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/png" href="/favicon light.png" media="(prefers-color-scheme: light)" />
 		<link rel="icon" type="image/png" href="/favicon dark.png" media="(prefers-color-scheme: dark)" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="stylesheet" href="style.css">
 		<title>deniz.studio</title>
@@ -17,7 +18,7 @@ import Tools from '../components/Tools.astro'
 			function updateFavicon() {
 				const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 				const favicon = document.querySelector('link[rel="icon"]');
-				if (favicon) {
+				if (favicon && 'href' in favicon) {
 					favicon.href = isDark ? '/favicon dark.png' : '/favicon light.png';
 				}
 			}
@@ -47,6 +48,7 @@ import Tools from '../components/Tools.astro'
 					</div>
 				</div>
 				</div>
+		<Testimonials />
 		<Tools />
         <Projects />
         </div>
@@ -142,6 +144,20 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 650px;
 	gap: 24px;
 	margin-bottom: 24px;
+	padding: 0 16px;
+	width: 100%;
+}
+
+@media (min-width: 768px) {
+	.container {
+		padding: 0 24px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.container {
+		padding: 0;
+	}
 }
 
 .main {
@@ -167,6 +183,15 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	align-items: center;
 	gap: 12px;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+	.buttons {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+	}
 }
 
 .cta {
@@ -195,6 +220,13 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	gap: 24px;
     text-decoration: underline;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+	.links {
+		gap: 16px;
+	}
 }
 
 .links a:hover {

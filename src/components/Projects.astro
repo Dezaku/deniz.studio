@@ -14,22 +14,30 @@ import webMVPHero from '../images/web-mvp-hero.png'
 import webReadlyHero from '../images/web-readly-hero.png'
 import webRentalinduHero from '../images/web-rentalindu-hero.png'
 import webWolfMailHero from '../images/web-wolfmail-hero.png'
+import appTrippaBig from '../images/app-trippa-big.png'
+import appTrippaFull from '../images/app-trippa-full.png'
+import webTrippaOne from '../images/web-trippa-1.png'
+import webTrippaTwo from '../images/web-trippa-2.png'
 
 ---
 <div class="projects">
-            <h2>Projects</h2>
+            <h2>Selected Work</h2>
             <div class="images">
-                <Image src={webReadlyHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webCyberHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={brandingFFMain} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={brandingFFSecond} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webFFHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webLawlyHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webCarelaHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webCostaHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webFusionFlowHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webMVPHero} alt="branding asset for featherflow.com" width={626}/>
-                <Image src={webRentalinduHero} alt="branding asset for featherflow.com" width={626}/>
+                <Image src={appTrippaBig} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={appTrippaFull} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webTrippaOne} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webTrippaTwo} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webReadlyHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webCyberHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={brandingFFMain} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={brandingFFSecond} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webFFHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webLawlyHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webCarelaHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webCostaHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webFusionFlowHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webMVPHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
+                <Image src={webRentalinduHero} alt="branding asset for featherflow.com" width={626} class="project-image"/>
             </div>
 </div>
 
@@ -47,6 +55,7 @@ import webWolfMailHero from '../images/web-wolfmail-hero.png'
     display: flex;
     flex-direction: column;
     gap: 0px;
+    width: 100%;
 }
 
 .images {
@@ -59,5 +68,18 @@ import webWolfMailHero from '../images/web-wolfmail-hero.png'
     background-color: #f6f6f6;
     border-radius: 9px;
     gap: 9px;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .images {
+        padding: 8px;
+        gap: 6px;
+    }
 }
 </style>

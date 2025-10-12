@@ -18,7 +18,7 @@ import Testimonials from '../components/Testimonials.astro'
     <meta property="og:image" content="/og-image.png"/>
     <meta property="og:description"
           content="Deniz is a designer nased in Wiesbaden, Germany creating modern and premium designs that elevate brands and engage audiences."/>
-		<script>
+		<script is:inline>
 			// Function to update favicon based on color scheme
 			function updateFavicon() {
 				const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -34,7 +34,7 @@ import Testimonials from '../components/Testimonials.astro'
 			// Listen for color scheme changes
 			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
 		</script>
-		<script
+		<script is:inline
     src="https://cdn.databuddy.cc/databuddy.js"
     data-client-id="W6GhIYnabj99uLxJJtJIj"
     data-track-hash-changes="true"

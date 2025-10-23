@@ -22,8 +22,8 @@ export default function Testimonials() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const duration = 4000;
-    const step = 40;
+    const duration = 7000;
+    const step = 70;
     let elapsed = 0;
 
     const timer = setInterval(() => {

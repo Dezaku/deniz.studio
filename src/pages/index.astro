@@ -1,6 +1,7 @@
 ---
 import Projects from '../components/Projects.astro'
 import Tools from '../components/Tools.astro'
+import TestimonialsTwo from '../components/TestimonialsTwo.tsx'
 import Testimonials from '../components/Testimonials.astro'
 ---
 
@@ -58,7 +59,7 @@ import Testimonials from '../components/Testimonials.astro'
 			<div class="title-cta">
 				<div class="titletext">
 					<h1 class="name">Hi I'm Deniz!</h1>
-					<p>Based in Wiesbaden, Germany I create modern and premium designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering beautiful and functional designs that drive real results for businesses like yours.</p>
+					<p>Based in Wiesbaden, Germany I create modern and premium designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering beautiful and functional designs that drive real results for businesses like yours. In my free time I also like to do <a href="https://photo.deniz.studio" target="_blank">photography</a>.</p>
 				</div>
 				<div class="buttons">
 
@@ -70,7 +71,7 @@ import Testimonials from '../components/Testimonials.astro'
 					</div>
 				</div>
 				</div>
-		<Testimonials />
+		<TestimonialsTwo client:load />
         <Projects />
         </div>
 		<div class="links">
@@ -132,8 +133,13 @@ input, button, textarea, select {
 
 a {
   color: inherit; /* blue colors for links too */
-  text-decoration: inherit; /* no underline */
+  /* text-decoration: inherit; no underline */
   font-size: 14px;
+}
+
+.titletext a {
+	text-decoration: underline;
+	text-decoration-style: dashed;
 }
 
 /* 8. Avoid text overflows */
@@ -214,6 +220,10 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+.cta a {
+	text-decoration: none;
+}
+
 .cta {
 	background-color: #1e1e1e;
 	width: fit-content;
@@ -223,7 +233,8 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	transition: all .3s ease-in-out;
+	transition: all .15s ease-in-out;
+
 }
 
 .cta:hover {

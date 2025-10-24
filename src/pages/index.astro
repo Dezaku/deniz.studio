@@ -52,6 +52,79 @@ import Testimonials from '../components/Testimonials.astro'
     crossorigin="anonymous"
     async
   ></script>
+		<script is:inline>
+			// Tracking utility functions
+			function isTrackerAvailable() {
+				return typeof window !== 'undefined' && (!!window.databuddy || !!window.db);
+			}
+
+			function getTracker() {
+				if (typeof window === 'undefined') {
+					return null;
+				}
+				return window.databuddy || null;
+			}
+
+			const track = async (eventName, properties) => {
+				if (typeof window === 'undefined') {
+					console.log('Tracking: Window not available');
+					return;
+				}
+				
+				// Try window.db first (shorthand), then window.databuddy
+				const tracker = window.db?.track || window.databuddy?.track;
+				if (!tracker) {
+					console.log('Tracking: Databuddy tracker not available');
+					return;
+				}
+				
+				try {
+					console.log('Tracking: Sending event', eventName, properties);
+					await tracker(eventName, properties);
+					console.log('Tracking: Event sent successfully');
+				} catch (error) {
+					console.log('Tracking: Failed to send event', error.message);
+					// Still log the event locally for debugging
+					console.log('Event that failed:', { eventName, properties, timestamp: new Date().toISOString() });
+				}
+			};
+
+			const trackCTAClick = async (ctaType, url) => {
+				await track('call_clicked', {
+					cta_type: ctaType,
+					url: url,
+					timestamp: new Date().toISOString(),
+					page: window.location.pathname
+				});
+			};
+
+			const trackEmailClick = async (email) => {
+				await track('mail_clicked', {
+					email: email,
+					timestamp: new Date().toISOString(),
+					page: window.location.pathname
+				});
+			};
+
+			// Wait for DOM to be ready
+			document.addEventListener('DOMContentLoaded', function() {
+				// Track CTA button clicks
+				const ctaButton = document.querySelector('.cta a');
+				if (ctaButton) {
+					ctaButton.addEventListener('click', function(e) {
+						trackCTAClick('book_call', 'https://cal.com/denizkumral');
+					});
+				}
+
+				// Track email clicks
+				const emailLink = document.querySelector('.second-cta a');
+				if (emailLink) {
+					emailLink.addEventListener('click', function(e) {
+						trackEmailClick('mail@deniz.studio');
+					});
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -63,11 +136,11 @@ import Testimonials from '../components/Testimonials.astro'
 				</div>
 				<div class="buttons">
 
-					<div class="cta">
-						<a href="https://cal.com/denizkumral">Book a Call</a>
-					</div>
+					<button class="cta">
+						<a href="https://cal.com/denizkumral" target="_blank">Book a Call</a>
+                    </button>
 					<div class="second-cta">
-						<a href="mailto:mail@deniz.studio">mail@deniz.studio</a>
+						<a href="mailto:mail@deniz.studio" target="_blank">mail@deniz.studio</a>
 					</div>
 				</div>
 				</div>
@@ -234,6 +307,7 @@ h1, h2, h3, h4, h5, h6 {
 	justify-content: center;
 	align-items: center;
 	transition: all .15s ease-in-out;
+    border: none;
 
 }
 

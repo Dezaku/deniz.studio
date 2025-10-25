@@ -20,8 +20,13 @@ import webTrippaOne from '../images/web-trippa-1.png'
 import webTrippaTwo from '../images/web-trippa-2.png'
 
 ---
+<div class="title-container">
+
+    <div class="title">
+        <h2>Selected Work</h2>
+    </div>
+</div>
 <div class="projects">
-            <h2>Selected Work</h2>
             <div class="images">
                 <Image class="image" src={appTrippaBig} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
                 <Image class="image" src={appTrippaFull} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
@@ -42,23 +47,39 @@ import webTrippaTwo from '../images/web-trippa-2.png'
 </div>
 
 <style>
-    h2 {
+.title-container {
+    max-width: 650px;
+    margin: 0 auto;
+    margin-bottom: 0;
+}
+
+.title {
+    width: 100%;
+    margin-bottom: 0;
+}
+    
+h2 {
  font-size: 16.875px;
  font-family: "Inter Variable", "Inter", sans-serif;
  font-weight: 450;
-margin-bottom: 14px;
+margin-bottom: 8px;
  margin-top: 0;
 }
 
 .projects {
+    width: 100%;
+    margin-top: 14px;
     margin-bottom: 0px;
-    max-width: 650px;
     display: flex;
     flex-direction: column;
     gap: 0px;
+    justify-content: center;
+    align-items: center;
 }
 
 .images {
+    width: 100%;
+    max-width: 1200px;
     margin-top: 0px;
     display: flex;
     flex-direction: column;
@@ -66,7 +87,7 @@ margin-bottom: 14px;
     align-items: center;
     padding: 12px;
     background-color: #f6f6f6;
-    border-radius: 9px;
+    border-radius: 24px;
     gap: 9px;
 }
 
@@ -81,10 +102,6 @@ margin-bottom: 14px;
         padding: 8px;
         gap: 6px;
     }
-}
-
-.image {
-    /* max-width: 626px; */
 }
 
 </style>

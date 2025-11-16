@@ -101,7 +101,7 @@ import mePFP from '../images/me.jpg'
 			};
 
 			const trackCTAClick = async (ctaType, url) => {
-				await track('call_clicked', {
+				await track('mail_clicked', {
 					cta_type: ctaType,
 					url: url,
 					timestamp: new Date().toISOString(),
@@ -110,7 +110,7 @@ import mePFP from '../images/me.jpg'
 			};
 
 			const trackEmailClick = async (email) => {
-				await track('mail_clicked', {
+				await track('placeholder', {
 					email: email,
 					timestamp: new Date().toISOString(),
 					page: window.location.pathname

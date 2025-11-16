@@ -1,107 +1,84 @@
 ---
 import { Image } from 'astro:assets';
-import brandingFFMain from '../images/branding-ff-main.png'
-import webFFHero from '../images/web-ff-hero.png'
-import brandingFFSecond from '../images/branding-ff-second.png'
-import webCarelaHero from '../images/web-carela-hero.png'
-import webCostaHero from '../images/web-costa-hero.png'
-import webCyberHero from '../images/web-cyber-hero.png'
-import webFusionFlowHero from '../images/web-fusionflow-hero.png'
-import webLawlyHero from '../images/web-lawly-hero.png'
-import webLinkedInHero from '../images/web-linkedin-hero.png'
-import webMondayLaunchHero from '../images/web-mondaylaunch-hero.png'
-import webMVPHero from '../images/web-mvp-hero.png'
-import webReadlyHero from '../images/web-readly-hero.png'
-import webRentalinduHero from '../images/web-rentalindu-hero.png'
-import webWolfMailHero from '../images/web-wolfmail-hero.png'
-import appTrippaBig from '../images/app-trippa-big.png'
-import appTrippaFull from '../images/app-trippa-full.png'
-import webTrippaOne from '../images/web-trippa-1.png'
-import webTrippaTwo from '../images/web-trippa-2.png'
 
+// Import images directly
+import appTrippaBig from '../images/app-trippa-big.png';
+import appTrippaFull from '../images/app-trippa-full.png';
+import webTrippaOne from '../images/web-trippa-1.png';
+import webTrippaTwo from '../images/web-trippa-2.png';
+import webReadlyHero from '../images/web-readly-hero.png';
+import webCyberHero from '../images/web-cyber-hero.png';
+import brandingFFMain from '../images/branding-ff-main.png';
+import brandingFFSecond from '../images/branding-ff-second.png';
+import webFFHero from '../images/web-ff-hero.png';
+import webLawlyHero from '../images/web-lawly-hero.png';
+import webCarelaHero from '../images/web-carela-hero.png';
+import webCostaHero from '../images/web-costa-hero.png';
+import webFusionFlowHero from '../images/web-fusionflow-hero.png';
+import webMVPHero from '../images/web-mvp-hero.png';
+import webRentalinduHero from '../images/web-rentalindu-hero.png';
+
+const images = [
+  { src: appTrippaBig, alt: 'Trippa App - Main Interface' },
+  { src: appTrippaFull, alt: 'Trippa App - Full View' },
+  { src: webTrippaOne, alt: 'Trippa Web - Feature 1' },
+  { src: webTrippaTwo, alt: 'Trippa Web - Feature 2' },
+  { src: webReadlyHero, alt: 'Readly Web App' },
+  { src: webCyberHero, alt: 'Cyber Security Project' },
+  { src: brandingFFMain, alt: 'FeatherFlow Branding - Main' },
+  { src: brandingFFSecond, alt: 'FeatherFlow Branding - Secondary' },
+  { src: webFFHero, alt: 'FeatherFlow Web - Hero' },
+  { src: webLawlyHero, alt: 'Lawly Web App' },
+  { src: webCarelaHero, alt: 'Carela Web App' },
+  { src: webCostaHero, alt: 'Costa Web App' },
+  { src: webFusionFlowHero, alt: 'FusionFlow Web App' },
+  { src: webMVPHero, alt: 'MVP Project' },
+  { src: webRentalinduHero, alt: 'Rentalindu Web App' },
+];
 ---
-<div class="title-container">
 
-    <div class="title">
-        <h2>Selected Work</h2>
-    </div>
-</div>
 <div class="projects">
-            <div class="images">
-                <Image class="image" src={appTrippaBig} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={appTrippaFull} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webTrippaOne} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webTrippaTwo} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webReadlyHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webCyberHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={brandingFFMain} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={brandingFFSecond} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webFFHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webLawlyHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webCarelaHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webCostaHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webFusionFlowHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webMVPHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-                <Image class="image" src={webRentalinduHero} alt="branding asset for featherflow.com" width={4320} quality={100}class="project-image"/>
-            </div>
+    <div class="images">
+        {images.map((img, index) => (
+            <Image
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                quality={100}
+                format={'webp'}
+                width={2400}
+                class="project-image"
+            />
+        ))}
+    </div>
 </div>
 
 <style>
-.title-container {
-    max-width: 650px;
-    margin: 0 auto;
-    margin-bottom: 0;
-}
-
-.title {
-    width: 100%;
-    margin-bottom: 0;
-}
-    
-h2 {
- font-size: 16.875px;
- font-family: "Inter Variable", "Inter", sans-serif;
- font-weight: 450;
-margin-bottom: 8px;
- margin-top: 0;
-}
-
 .projects {
     width: 100%;
-    margin-top: 14px;
-    margin-bottom: 0px;
-    display: flex;
-    flex-direction: column;
-    gap: 0px;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    display: block;
+    max-width: 100%;
 }
 
 .images {
     width: 100%;
-    max-width: 1200px;
-    margin-top: 0px;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 12px;
-    background-color: #f6f6f6;
-    border-radius: 24px;
-    gap: 9px;
+    gap: 16px;
 }
 
 .project-image {
     width: 100%;
-    height: auto;
     max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
 }
-
-@media (max-width: 768px) {
-    .images {
-        padding: 8px;
-        gap: 6px;
-    }
-}
-
 </style>

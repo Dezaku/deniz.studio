@@ -1,8 +1,10 @@
 ---
 import Projects from '../components/Projects.astro'
-import Tools from '../components/Tools.astro'
-import TestimonialsTwo from '../components/TestimonialsTwo.tsx'
 import Testimonials from '../components/Testimonials.astro'
+import TestimonialsTwo from '../components/TestimonialsTwo.tsx'
+import { Image } from 'astro:assets';
+import sendSVG from '../../public/send.svg'
+import mePFP from '../images/me.jpg'
 ---
 
 <html lang="en">
@@ -47,6 +49,7 @@ import Testimonials from '../components/Testimonials.astro'
     src="https://cdn.databuddy.cc/databuddy.js"
     data-client-id="u3DUg2DzSoaD6s6Oloc8e"
     data-track-hash-changes="true"
+
     data-track-attributes="true"
     data-track-outgoing-links="true"
     data-track-interactions="true"
@@ -136,34 +139,43 @@ import Testimonials from '../components/Testimonials.astro'
 	</head>
 	<body>
 		<div class="container">
-			<div class="main">
-				<div class="title-cta">
-					<div class="titletext">
-						<h1 class="name">Hi I'm Deniz!</h1>
-						<p>Based in Wiesbaden, Germany I create modern and premium designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering beautiful and functional designs that drive real results for businesses like yours. In my free time I also like to do <a href="https://photo.deniz.studio" target="_blank">photography</a>.</p>
+			<div class="content-wrapper">
+				<!-- Left Column (Text Content) -->
+				<div class="left-column">
+					<div class="main">
+						<div class="title-cta">
+							<div class="titletext">
+								<Image quality={100} src={mePFP} id={"pfp"} alt="Image of me" width={200}/>
+								<h1 class="name">Hi I'm Deniz,</h1>
+								<p>based in Wiesbaden, Germany I create designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering designs that drive real results for businesses. In my free time I also like to do <a href="https://photo.deniz.studio" target="_blank">photography</a>.</p>
+							</div>
+							<div class="buttons">
+								<button class="cta">
+									<a href="mailto:mail@deniz.studio" target="_blank">Send Email</a>
+									<Image quality={100} src={sendSVG} class="send-icon" alt="send icon" width={200}/>
+								</button>
+								<!-- <button class="second-cta">
+									<a href="mailto:mail@deniz.studio" target="_blank">mail@deniz.studio</a>
+								</button> -->
+							</div>
+						</div>
 					</div>
-					<div class="buttons">
-						<button class="cta">
-							<a href="https://cal.com/denizkumral" target="_blank">Book a Call</a>
-						</button>
-						<button class="second-cta">
-							<a href="mailto:mail@deniz.studio" target="_blank">mail@deniz.studio</a>
-						</button>
+
+					<div class="bottom-content">
+						<Testimonials />
+						<div class="links">
+							<a href="/imprint">Imprint</a>
+							<a href="/privacy">Privacy</a>
+							<a href="https://photo.deniz.studio" target="_blank">Photography</a>
+						</div>
 					</div>
 				</div>
-				<Testimonials />
+
+				<!-- Right Column (Projects) -->
+				<div class="right-column">
+					<Projects />
+				</div>
 			</div>
-			
-			<div class="projects-section">
-				<Projects />
-			</div>
-			
-			<div class="links">
-				<a href="/imprint">Imprint</a>
-				<a href="/privacy">Privacy</a>
-				<a href="https://photo.deniz.studio" target="_blank">Photography</a>
-			</div>
-		</div>
 	</body>
 </html>
 
@@ -249,35 +261,120 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+/* Base container styles */
 .container {
-	display: flex;
-	flex-direction: column;
-	margin-top: 24px;
-	margin-bottom: 24px;
-	padding: 0 16px;
-	width: 100%;
-	gap: 24px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-@media (min-width: 768px) {
-	.container {
-		padding: 0 24px;
-	}
+/* Content wrapper */
+.content-wrapper {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-@media (min-width: 1024px) {
-	.container {
-		padding: 0;
-	}
+/* Left column - Fixed width */
+.left-column {
+  width: 468px;
+  flex-shrink: 0;
+  padding: 24px 24px 24px 48px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .main {
-	max-width: 650px;
-	display: flex;
-	flex-direction: column;
-	gap: 46px;
-	margin: 0 auto;
-	width: 100%;
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.bottom-content {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 40px;
+}
+
+/* Ensure content doesn't grow or shrink */
+.left-column > * {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Only bottom content should take remaining space */
+.bottom-content {
+  margin-top: auto;
+}
+
+/* Right column - Takes remaining space */
+.right-column {
+  flex: 1;
+  min-width: 0;
+  padding: 24px 24px 0 24px;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: visible;
+  box-sizing: border-box;
+}
+
+/* Projects container */
+.right-column .projects {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+/* Projects container */
+.projects {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobile styles */
+@media (max-width: 1023px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+  
+  .left-column {
+    width: 100%;
+    height: auto;
+    position: static;
+    padding: 24px 16px;
+  }
+  
+  .right-column {
+    padding: 0 16px 24px;
+  }
+  
+  .left-column .links {
+    display: none;
+  }
+  
+  .mobile-links {
+    display: block;
+    width: 100%;
+    padding: 0 16px 40px;
+    text-align: center;
+  }
+  
+  .mobile-links .links {
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .projects-section {
@@ -290,17 +387,31 @@ h1, h2, h3, h4, h5, h6 {
 	display: flex;
 	max-width: 650px;
 	align-items: center;
-	justify-content: center;
+	margin-top: 24px;
+	justify-content: flex-start;
 	gap: 24px;
 	text-decoration: underline;
 	flex-wrap: wrap;
-	margin: 12px auto 0 auto;
 	width: 100%;
+	padding: 0 24px;
+	opacity: 0.75;
+}
+
+/* Mobile links container - hidden by default */
+.mobile-links {
+  display: none;
+}
+
+@media (min-width: 768px) {
+	.links {
+		margin-top: 24px;
+		padding: 0;
+	}
 }
 
 @media (max-width: 480px) {
 	.links {
-		gap: 16px;
+		gap: 12px;
 	}
 }
 
@@ -336,24 +447,40 @@ h1, h2, h3, h4, h5, h6 {
 
 .cta a {
 	text-decoration: none;
+	align-items: center;
+	gap: 8px;
+}
+
+.cta-icon {
+	width: 16px;
+	height: 16px;
+	margin-left: 8px;
+	flex-shrink: 0;
 }
 
 .cta {
-	background-color: #1e1e1e;
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	align-items: center;
+	background-color: #732DFF;
 	width: fit-content;
 	color: #ffffff;
-	padding: 6px 14px 6px 14px;
-	border-radius: 64px;
+	padding: 8px 16px;
+	border-radius: 100px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transition: all .15s ease-in-out;
-    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+	font-weight: 500;
+	box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
 }
 
 .cta:hover {
-	color: #1e1e1e;
-	background-color: #f0f0f0;
+	color: #ffffff;
+	background-color: #5a1ce0;
+	border-color: rgba(0, 0, 0, 0.05);
 }
 
 .second-cta {
@@ -362,4 +489,18 @@ h1, h2, h3, h4, h5, h6 {
 	background-color: transparent;
 }
 
+#pfp {
+	width: 42px;
+	height: 42px;
+	border-radius: 100px;
+	margin-bottom: 16px;
+
+}
+
+.send-icon {
+	width: 16px;
+	height: 16px;
+	opacity: 1;
+	margin-top: 1.5px;
+}
 </style>

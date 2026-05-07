@@ -4,7 +4,11 @@ import Testimonials from '../components/Testimonials.astro'
 import TestimonialsTwo from '../components/TestimonialsTwo.tsx'
 import { Image } from 'astro:assets';
 import sendSVG from '../../public/send.svg'
+import figmaSVG from '../../public/figma.svg'
 import mePFP from '../images/me.jpg'
+
+/** Public case study / Figma deck URL — update as needed */
+const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/deniz.studio---Portfolio?content-scaling=fixed&node-id=19-106&p=f&scaling=min-zoom&starting-point-node-id=19:106&t=ZeVXUQBxl8rfgWIb-0&viewport=-112,304,0.12';
 ---
 
 <html lang="en">
@@ -47,7 +51,7 @@ import mePFP from '../images/me.jpg'
 		</script>
 		<script is:inline
     src="https://cdn.databuddy.cc/databuddy.js"
-    data-client-id="u3DUg2DzSoaD6s6Oloc8e"
+   data-client-id="u3DUg2DzSoaD6s6Oloc8e"
     data-track-hash-changes="true"
 
     data-track-attributes="true"
@@ -127,14 +131,42 @@ import mePFP from '../images/me.jpg'
 					});
 				}
 
-				// Track email clicks
-				const emailLink = document.querySelector('.second-cta a');
-				if (emailLink) {
-					emailLink.addEventListener('click', function(e) {
+				// Track copy-email clicks (handler also fires from copyMail)
+				const copyMailBtn = document.getElementById('copyMail');
+				if (copyMailBtn) {
+					copyMailBtn.addEventListener('click', function () {
 						trackEmailClick('mail@deniz.studio');
 					});
 				}
 			});
+
+			let copyMailTooltipTimer = null;
+
+			async function copyMail() {
+				const email = 'mail@deniz.studio';
+				try {
+					await navigator.clipboard.writeText(email);
+				} catch {
+					const ta = document.createElement('textarea');
+					ta.value = email;
+					ta.setAttribute('readonly', '');
+					ta.style.position = 'fixed';
+					ta.style.left = '-9999px';
+					document.body.appendChild(ta);
+					ta.select();
+					document.execCommand('copy');
+					document.body.removeChild(ta);
+				}
+
+				const tip = document.getElementById('copy-feedback');
+				if (!tip) return;
+
+				tip.classList.add('show');
+				clearTimeout(copyMailTooltipTimer);
+				copyMailTooltipTimer = setTimeout(function () {
+					tip.classList.remove('show');
+				}, 2200);
+			}
 		</script>
 	</head>
 	<body>
@@ -150,13 +182,31 @@ import mePFP from '../images/me.jpg'
 								<p>based in Wiesbaden, Germany I create designs that elevate brands and engage audiences. I collaborate closely with my clients to ensure every pixel serves a purpose, delivering designs that drive real results for businesses. In my free time I also like to do <a href="https://photo.deniz.studio" target="_blank">photography</a>.</p>
 							</div>
 							<div class="buttons">
-								<button class="cta">
-									<a href="mailto:mail@deniz.studio" target="_blank">Send Email</a>
-									<Image quality={100} src={sendSVG} class="send-icon" alt="send icon" width={200}/>
-								</button>
-								<!-- <button class="second-cta">
-									<a href="mailto:mail@deniz.studio" target="_blank">mail@deniz.studio</a>
-								</button> -->
+								<div class="mail-buttons">
+									<div class="hero-cta-row">
+										<div class="hero-mail-stack">
+											<button class="cta">
+												<a href="mailto:mail@deniz.studio" target="_blank">Send Email</a>
+												<Image quality={100} src={sendSVG} class="send-icon" alt="" width={200}/>
+											</button>
+											<div class="copy-mail-wrap">
+												<button type="button" class="second-cta" onclick="copyMail()" id="copyMail" aria-describedby="copy-feedback">
+													<span class="copy-email-label">copy mail</span>
+												</button>
+												<span id="copy-feedback" class="copy-tooltip" role="status">Mail copied</span>
+											</div>
+										</div>
+										<a
+											class="cta-case-study"
+											href={recentCaseStudyHref}
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											<Image quality={100} src={figmaSVG} class="figma-icon" alt="" width={54} height={80}/>
+											<span>view recent case study</span>
+										</a>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -483,10 +533,115 @@ h1, h2, h3, h4, h5, h6 {
 	border-color: rgba(0, 0, 0, 0.05);
 }
 
+.mail-buttons {
+	display: flex;
+	justify-content: center;
+}
+
+.hero-mail-stack {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0;
+}
+
+.hero-cta-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 12px;
+}
+
+.cta-case-study {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	flex-shrink: 0;
+	background-color: #ffffff;
+	color: #1e1e1e;
+	padding: 8px 14px 8px 16px;
+	border-radius: 100px;
+	border: 1px solid rgba(30, 30, 30, 0.14);
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1.2;
+	white-space: nowrap;
+	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.cta-case-study:hover {
+	color: #1e1e1e;
+	background-color: #fafafa;
+	border-color: rgba(30, 30, 30, 0.22);
+}
+
+.cta-case-study:focus-visible {
+	outline: 2px solid #732dff;
+	outline-offset: 2px;
+}
+
+.figma-icon {
+	width: 14px;
+	height: auto;
+	flex-shrink: 0;
+}
+
+.copy-mail-wrap {
+	position: relative;
+	display: inline-block;
+	width: fit-content;
+}
+
 .second-cta {
 	text-decoration: underline;
 	border: none;
 	background-color: transparent;
+	cursor: pointer;
+	padding: 0;
+	text-align: center;
+	font-size: 12px;
+	color: inherit;
+}
+
+.copy-email-label {
+	font-size: 12px;
+}
+
+.copy-tooltip {
+	position: absolute;
+	left: 50%;
+	top: 100%;
+	transform: translateX(-50%);
+	margin-top: 6px;
+	padding: 6px 10px;
+	font-size: 12px;
+	line-height: 1.2;
+	white-space: nowrap;
+	color: #ffffff;
+	background-color: #1e1e1e;
+	border-radius: 6px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transition: opacity 0.15s ease;
+	z-index: 2;
+}
+
+.copy-tooltip.show {
+	opacity: 1;
+	visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.copy-tooltip {
+		transition: none;
+	}
 }
 
 #pfp {

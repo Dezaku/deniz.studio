@@ -391,6 +391,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Mobile styles */
 @media (max-width: 1023px) {
+  body {
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
   .content-wrapper {
     flex-direction: column;
   }
@@ -398,23 +403,96 @@ h1, h2, h3, h4, h5, h6 {
   .left-column {
     width: 100%;
     height: auto;
+    min-height: 0;
     position: static;
-    padding: 20px 16px;
+    padding: 24px 16px;
+    overflow-y: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .hero-header {
+    margin-bottom: 32px;
   }
 
   .main {
     flex: 0 0 auto;
+    display: block;
     justify-content: flex-start;
+    min-height: 0;
+    margin-bottom: 8px;
+  }
+
+  .bottom-content {
+    padding-top: 56px;
+    margin-top: 0;
+  }
+
+  .title-cta {
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .titletext {
+    align-items: flex-start;
+    text-align: left;
+    gap: 10px;
   }
 
   .hero-headline {
-    font-size: 24px;
-    line-height: 1.3;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: normal;
+    text-align: left;
+    text-wrap: pretty;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+
+  .hero-subheadline {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.55;
+    max-width: none;
+    text-align: left;
+  }
+
+  .buttons {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mail-buttons {
+    justify-content: center;
+  }
+
+  .hero-mail-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+  }
+
+  .copy-mail-wrap {
+    align-self: center;
+  }
+
+  .second-cta {
+    padding-block: 8px;
+  }
+
+  .hero-cta-row {
+    justify-content: center;
+    align-items: center;
   }
 
   .site-logo {
     font-size: 15px;
-	font-weight: 350;
+    font-weight: 350;
   }
   
   .right-column {

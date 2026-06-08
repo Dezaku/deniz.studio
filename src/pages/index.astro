@@ -1,12 +1,10 @@
 ---
 import Projects from '../components/Projects.astro'
 import Testimonials from '../components/Testimonials.astro'
-import TestimonialsTwo from '../components/TestimonialsTwo.tsx'
 import { Image } from 'astro:assets';
 import figmaSVG from '../../public/figma.svg'
 import mePFP from '../images/me.jpg'
 
-/** Public case study / Figma deck URL — update as needed */
 const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/deniz.studio---Portfolio?content-scaling=fixed&node-id=19-106&p=f&scaling=min-zoom&starting-point-node-id=19:106&t=ZeVXUQBxl8rfgWIb-0&viewport=-112,304,0.12';
 ---
 
@@ -33,7 +31,6 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
     <meta name="twitter:description" content="Deniz is a designer nased in Wiesbaden, Germany creating modern and premium designs that elevate brands and engage audiences."/>
     <meta name="twitter:image" content="https://deniz.studio/og-image.png"/>
 		<script is:inline>
-			// Function to update favicon based on color scheme
 			function updateFavicon() {
 				const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 				const favicon = document.querySelector('link[rel="icon"]');
@@ -42,17 +39,13 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 				}
 			}
 
-			// Update favicon on page load
 			updateFavicon();
-
-			// Listen for color scheme changes
 			window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
 		</script>
 		<script is:inline
     src="https://cdn.databuddy.cc/databuddy.js"
    data-client-id="u3DUg2DzSoaD6s6Oloc8e"
     data-track-hash-changes="true"
-
     data-track-attributes="true"
     data-track-outgoing-links="true"
     data-track-interactions="true"
@@ -67,146 +60,130 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
     async
   ></script>
 		<script is:inline>
-			// Tracking utility functions
-			function isTrackerAvailable() {
-				return typeof window !== 'undefined' && (!!window.databuddy || !!window.db);
-			}
-
-			function getTracker() {
-				if (typeof window === 'undefined') {
-					return null;
-				}
-				return window.databuddy || null;
-			}
-
 			const track = async (eventName, properties) => {
-				if (typeof window === 'undefined') {
-					console.log('Tracking: Window not available');
-					return;
-				}
-				
-				// Try window.db first (shorthand), then window.databuddy
+				if (typeof window === 'undefined') return;
 				const tracker = window.db?.track || window.databuddy?.track;
-				if (!tracker) {
-					console.log('Tracking: Databuddy tracker not available');
-					return;
-				}
-				
-				try {
-					console.log('Tracking: Sending event', eventName, properties);
-					await tracker(eventName, properties);
-					console.log('Tracking: Event sent successfully');
-				} catch (error) {
-					console.log('Tracking: Failed to send event', error.message);
-					// Still log the event locally for debugging
-					console.log('Event that failed:', { eventName, properties, timestamp: new Date().toISOString() });
+				if (!tracker) return;
+				try { await tracker(eventName, properties); } catch (e) {
+					console.log('Tracking: Failed to send event', e.message);
 				}
 			};
 
-			const trackCTAClick = async (ctaType, url) => {
-				await track('mail_clicked', {
-					cta_type: ctaType,
-					url: url,
-					timestamp: new Date().toISOString(),
-					page: window.location.pathname
-				});
-			};
-
-			const trackEmailClick = async (email) => {
-				await track('placeholder', {
-					email: email,
-					timestamp: new Date().toISOString(),
-					page: window.location.pathname
-				});
-			};
-
-			// Wait for DOM to be ready
 			document.addEventListener('DOMContentLoaded', function() {
-				// Track CTA button clicks
-				const ctaButton = document.querySelector('.cta a');
-				if (ctaButton) {
-					ctaButton.addEventListener('click', function(e) {
-						trackCTAClick('book_call', 'https://cal.com/denizkumral');
+				const reachOutBtn = document.getElementById('reachOutBtn');
+				if (reachOutBtn) {
+					reachOutBtn.addEventListener('click', function() {
+						track('reachout_clicked', {
+							timestamp: new Date().toISOString(),
+							page: window.location.pathname
+						});
+						document.getElementById('popupOverlay').classList.add('open');
 					});
 				}
 
-				// Track copy-email clicks (handler also fires from copyMail)
-				const copyMailBtn = document.getElementById('copyMail');
-				if (copyMailBtn) {
-					copyMailBtn.addEventListener('click', function () {
-						trackEmailClick('mail@deniz.studio');
+				const navEmail = document.getElementById('nav-email');
+				if (navEmail) {
+					navEmail.addEventListener('click', function() {
+						track('mail_clicked', {
+							timestamp: new Date().toISOString(),
+							page: window.location.pathname
+						});
+						window.location.href = 'mailto:mail@deniz.studio';
+					});
+				}
+
+				const navTelegram = document.getElementById('nav-telegram');
+				if (navTelegram) {
+					navTelegram.addEventListener('click', function() {
+						track('telegram_clicked', {
+							url: 'https://t.me/denizdoingstuff',
+							timestamp: new Date().toISOString(),
+							page: window.location.pathname
+						});
+					});
+				}
+
+				const navTwitter = document.getElementById('nav-twitter');
+				if (navTwitter) {
+					navTwitter.addEventListener('click', function() {
+						track('twitter_clicked', {
+							url: 'https://x.com/denizdoingstuff',
+							timestamp: new Date().toISOString(),
+							page: window.location.pathname
+						});
+					});
+				}
+
+				const caseStudyBtn = document.getElementById('caseStudyBtn');
+				if (caseStudyBtn) {
+					caseStudyBtn.addEventListener('click', function() {
+						track('casestudy_clicked', {
+							timestamp: new Date().toISOString(),
+							page: window.location.pathname
+						});
+					});
+				}
+
+				const popupClose = document.getElementById('popupClose');
+				const popupOverlay = document.getElementById('popupOverlay');
+				if (popupClose && popupOverlay) {
+					popupClose.addEventListener('click', function() {
+						popupOverlay.classList.remove('open');
+					});
+					popupOverlay.addEventListener('click', function(e) {
+						if (e.target === popupOverlay) popupOverlay.classList.remove('open');
 					});
 				}
 			});
-
-			let copyMailTooltipTimer = null;
-
-			async function copyMail() {
-				const email = 'mail@deniz.studio';
-				try {
-					await navigator.clipboard.writeText(email);
-				} catch {
-					const ta = document.createElement('textarea');
-					ta.value = email;
-					ta.setAttribute('readonly', '');
-					ta.style.position = 'fixed';
-					ta.style.left = '-9999px';
-					document.body.appendChild(ta);
-					ta.select();
-					document.execCommand('copy');
-					document.body.removeChild(ta);
-				}
-
-				const tip = document.getElementById('copy-feedback');
-				if (!tip) return;
-
-				tip.classList.add('show');
-				clearTimeout(copyMailTooltipTimer);
-				copyMailTooltipTimer = setTimeout(function () {
-					tip.classList.remove('show');
-				}, 2200);
-			}
 		</script>
 	</head>
 	<body>
 		<div class="container">
 			<div class="content-wrapper">
-				<!-- Left Column (Text Content) -->
 				<div class="left-column">
+
 					<header class="hero-header">
-						<a href="/" class="site-logo">deniz.studio</a>
+						<div class="nav-row">
+							<a href="/" class="site-logo">deniz.studio</a>
+							<nav class="nav-links">
+								<span class="nav-link email-link" id="nav-email">
+									email
+									<span class="email-tooltip">mail@deniz.studio</span>
+								</span>
+								<a class="nav-link" id="nav-telegram" href="https://t.me/denizdoingstuff" target="_blank">telegram</a>
+								<a class="nav-link" id="nav-twitter" href="https://x.com/denizdoingstuff" target="_blank">x</a>
+							</nav>
+						</div>
 					</header>
+
 					<div class="main">
 						<div class="title-cta">
 							<div class="titletext">
-								<h1 class="hero-headline">Good design, better business</h1>
-								<p class="hero-subheadline">You bring the vision.<br />I create designs that make you strive.</p>
+								<div class="headline-wrap">
+									<h1 class="hero-headline">Good design, better business</h1>
+								</div>
+								<div class="subheadline-wrap">
+									<p class="hero-subheadline">You bring the vision.<br />I create designs that make you strive.</p>
+								</div>
 							</div>
 							<div class="buttons">
-								<div class="mail-buttons">
-									<div class="hero-cta-row">
-										<div class="hero-mail-stack">
-											<button class="cta">
-												<Image quality={100} src={mePFP} class="cta-pfp" alt="Deniz" width={200} height={200}/>
-												<a href="mailto:mail@deniz.studio" target="_blank">Send Email</a>
-											</button>
-											<div class="copy-mail-wrap">
-												<button type="button" class="second-cta" onclick="copyMail()" id="copyMail" aria-describedby="copy-feedback">
-													<span class="copy-email-label">copy mail</span>
-												</button>
-												<span id="copy-feedback" class="copy-tooltip" role="status">Mail copied</span>
-											</div>
-										</div>
-										<a
-											class="cta-case-study"
-											href={recentCaseStudyHref}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											<Image quality={100} src={figmaSVG} class="figma-icon" alt="" width={54} height={80}/>
-											<span>view recent case study</span>
-										</a>
+								<div class="buttons-inner">
+									<div class="cta-col">
+										<button class="cta" id="reachOutBtn">
+											<Image quality={100} src={mePFP} class="cta-pfp" alt="Deniz" width={200} height={200}/>
+											<div class="cta-label">Reach Out</div>
+										</button>
 									</div>
+									<a
+										class="cta-case-study"
+										href={recentCaseStudyHref}
+										target="_blank"
+										rel="noopener noreferrer"
+										id="caseStudyBtn"
+									>
+										<Image quality={100} src={figmaSVG} class="figma-icon" alt="" width={54} height={80}/>
+										<span>view recent case study</span>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -220,13 +197,92 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 							<a href="https://photo.deniz.studio" target="_blank">Photography</a>
 						</div>
 					</div>
+
 				</div>
 
-				<!-- Right Column (Projects) -->
 				<div class="right-column">
 					<Projects />
 				</div>
 			</div>
+		</div>
+
+		<div class="popup-overlay" id="popupOverlay">
+			<div class="popup-form">
+				<button class="popup-close" id="popupClose">&times;</button>
+				<form action="https://formsubmit.co/mail@deniz.studio" method="POST">
+					<input type="hidden" name="_subject" value="New enquiry from deniz.studio">
+					<input type="hidden" name="_template" value="table">
+					<input type="text" name="_honey" style="display:none">
+
+					<h2 class="form-title">Reach Out</h2>
+
+					<blockquote class="form-testimonial">
+						<p>"Deniz helped turn a very open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his abstract explorations helped us land on something distinctive that I'm really happy with."</p>
+						<cite>&mdash; Adam Smielewski, Scalerail</cite>
+					</blockquote>
+
+					<div class="form-row">
+						<label class="form-field">
+							<span class="field-label">Name <span class="required">*</span></span>
+							<input type="text" name="Name" placeholder="Your name" required />
+						</label>
+
+						<label class="form-field">
+							<span class="field-label">Company name <span class="optional">(optional)</span></span>
+							<input type="text" name="Company name" placeholder="Your company or project name" />
+						</label>
+					</div>
+
+					<label class="form-field">
+						<span class="field-label">Email <span class="required">*</span></span>
+						<input type="email" name="Email" placeholder="your@email.com" required />
+					</label>
+
+					<label class="form-field">
+						<span class="field-label">Describe what you do in one sentence <span class="required">*</span></span>
+						<input type="text" name="Describe what you do" placeholder="We help X do Y by Z" required />
+					</label>
+
+					<div class="form-row">
+						<fieldset class="form-field">
+							<legend class="field-label">What are you looking for? <span class="required">*</span></legend>
+							<div class="chip-group">
+								<label class="chip"><input type="checkbox" name="Looking for" value="Branding" /> Branding</label>
+								<label class="chip"><input type="checkbox" name="Looking for" value="Logo" /> Logo</label>
+								<label class="chip"><input type="checkbox" name="Looking for" value="Landing Page" /> Landing Page</label>
+								<label class="chip"><input type="checkbox" name="Looking for" value="Other" /> Other</label>
+							</div>
+						</fieldset>
+
+						<fieldset class="form-field">
+							<legend class="field-label">Budget <span class="required">*</span></legend>
+							<div class="radio-group">
+								<label class="radio-label"><input type="radio" name="Budget" value="Under $500" required /> Under $500</label>
+								<label class="radio-label"><input type="radio" name="Budget" value="Under $1,000" /> Under $1,000</label>
+								<label class="radio-label"><input type="radio" name="Budget" value="Under $2,500" /> Under $2,500</label>
+							</div>
+						</fieldset>
+					</div>
+
+					<label class="form-field">
+						<span class="field-label">Tell me more <span class="optional">(optional)</span></span>
+						<textarea name="Tell me more" placeholder="Share any details, references, deadlines, or ideas you have in mind&hellip;" rows={4}></textarea>
+					</label>
+
+					<p class="form-closing">I'll reach out to you with further information so we can explore working together. &loz;</p>
+
+					<button type="submit" class="form-submit">Send it &rarr;</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="mobile-links">
+			<div class="links">
+				<a href="/imprint">Imprint</a>
+				<a href="/privacy">Privacy</a>
+				<a href="https://photo.deniz.studio" target="_blank">Photography</a>
+			</div>
+		</div>
 	</body>
 </html>
 
@@ -239,18 +295,15 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 		font-display: swap;
 	}
 
-	/* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {
   box-sizing: border-box;
   font-family: "General Sans", sans-serif;
 }
 
-/* 2. Remove default margin */
 * {
   margin: 0;
 }
 
-/* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
   html {
     interpolate-size: allow-keywords;
@@ -258,9 +311,7 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 }
 
 body {
-  /* 4. Add accessible line-height */
   line-height: 1.5;
-  /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
@@ -268,51 +319,38 @@ body {
   align-items: center;
 }
 
-/* 6. Improve media defaults */
 img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
 
-/* 7. Inherit fonts for form controls */
 input, button, textarea, select {
   font: inherit;
 }
 
 a {
-  color: inherit; /* blue colors for links too */
-  /* text-decoration: inherit; no underline */
+  color: inherit;
   font-size: 14px;
 }
 
-.titletext a {
-	text-decoration: underline;
-	text-decoration-style: dashed;
-}
-
-/* 8. Avoid text overflows */
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* 9. Improve line wrapping */
 p {
   text-wrap: pretty;
   color: #1e1e1e;
 }
+
 h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
   color: #1e1e1e;
 }
 
-/*
-  10. Create a root stacking context
-*/
 #root, #__next {
   isolation: isolate;
 }
 
-/* Base container styles */
 .container {
   width: 100%;
   margin: 0;
@@ -320,7 +358,6 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
 }
 
-/* Content wrapper */
 .content-wrapper {
   display: flex;
   width: 100%;
@@ -329,9 +366,8 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 100vh;
 }
 
-/* Left column - Fixed width */
 .left-column {
-  width: 468px;
+  width: 540px;
   flex-shrink: 0;
   padding: 28px 22px 28px 44px;
   position: sticky;
@@ -341,12 +377,89 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  background-color: #ffffff;
 }
 
-.hero-header,
-.bottom-content {
-  flex-shrink: 0;
+.hero-header {
   width: 100%;
+  flex-shrink: 0;
+}
+
+.nav-row {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+}
+
+.nav-links {
+  display: flex;
+  align-items: start;
+  gap: 24px;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: 450;
+  line-height: 18px;
+  color: #000000;
+  cursor: pointer;
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: color 0.15s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #7a7a7a;
+}
+
+.email-link {
+  position: relative;
+}
+
+.email-tooltip {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #1e1e1e;
+  background-color: #ffffff;
+  border: 1px solid rgba(30, 30, 30, 0.14);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, visibility 0.15s ease;
+  z-index: 10;
+}
+
+.email-link:hover .email-tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.site-logo {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 520;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #1e1e1e;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+.site-logo:hover {
+  color: #7a7a7a;
 }
 
 .main {
@@ -358,11 +471,176 @@ h1, h2, h3, h4, h5, h6 {
   min-height: 0;
 }
 
+.title-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.titletext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.headline-wrap {
+  padding-bottom: 2.8px;
+}
+
+.hero-headline {
+  font-size: 28px;
+  font-weight: 550;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-wrap: pretty;
+  color: #1e1e1e;
+}
+
+.subheadline-wrap {
+  max-width: 318px;
+}
+
+.hero-subheadline {
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 1.55;
+  text-align: center;
+  text-wrap: pretty;
+  color: #1e1e1e;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.buttons-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.cta-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: fit-content;
+  background-color: #732dff;
+  color: #ffffff;
+  padding: 6px 16px 6px 6px;
+  border-radius: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+.cta:hover {
+  background-color: #5a1ce0;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.cta-label {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+.cta-pfp {
+  width: 28px;
+  height: 28px;
+  border-radius: 100px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.cta-case-study {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  color: #1e1e1e;
+  padding: 8px 14px 8px 16px;
+  border-radius: 100px;
+  border: 1px solid rgba(30, 30, 30, 0.14);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.cta-case-study:hover {
+  color: #1e1e1e;
+  background-color: #fafafa;
+  border-color: rgba(30, 30, 30, 0.22);
+}
+
+.cta-case-study:focus-visible {
+  outline: 2px solid #732dff;
+  outline-offset: 2px;
+}
+
+.figma-icon {
+  width: 14px;
+  height: auto;
+  flex-shrink: 0;
+}
+
 .bottom-content {
+  flex-shrink: 0;
+  width: fit-content;
   padding-top: 16px;
 }
 
-/* Right column - Takes remaining space */
+.links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 22px;
+  max-width: 650px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.links a {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: #000000;
+  text-decoration: underline;
+  text-underline-offset: auto;
+}
+
+.links a:hover {
+  color: #7a7a7a;
+}
+
 .right-column {
   flex: 1;
   min-width: 0;
@@ -374,7 +652,6 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;
 }
 
-/* Projects container */
 .right-column .projects {
   margin: 0;
   padding: 0;
@@ -383,13 +660,15 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
 }
 
-/* Projects container */
 .projects {
   width: 100%;
   height: 100%;
 }
 
-/* Mobile styles */
+.mobile-links {
+  display: none;
+}
+
 @media (max-width: 1023px) {
   body {
     justify-content: flex-start;
@@ -399,7 +678,7 @@ h1, h2, h3, h4, h5, h6 {
   .content-wrapper {
     flex-direction: column;
   }
-  
+
   .left-column {
     width: 100%;
     height: auto;
@@ -415,6 +694,14 @@ h1, h2, h3, h4, h5, h6 {
 
   .hero-header {
     margin-bottom: 32px;
+  }
+
+  .nav-links {
+    gap: 14px;
+  }
+
+  .nav-link {
+    font-size: 14px;
   }
 
   .main {
@@ -441,6 +728,10 @@ h1, h2, h3, h4, h5, h6 {
     gap: 10px;
   }
 
+  .headline-wrap {
+    padding-bottom: 0;
+  }
+
   .hero-headline {
     font-size: 15px;
     font-weight: 400;
@@ -448,8 +739,10 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: normal;
     text-align: left;
     text-wrap: pretty;
-    padding-bottom: 0;
-    margin-bottom: 0;
+  }
+
+  .subheadline-wrap {
+    max-width: none;
   }
 
   .hero-subheadline {
@@ -465,332 +758,288 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: center;
   }
 
-  .mail-buttons {
-    justify-content: center;
-  }
-
-  .hero-mail-stack {
-    flex-direction: row;
-    flex-wrap: wrap;
+  .buttons-inner {
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 8px 14px;
+    gap: 12px;
   }
 
-  .copy-mail-wrap {
-    align-self: center;
-  }
-
-  .second-cta {
-    padding-block: 8px;
-  }
-
-  .hero-cta-row {
-    justify-content: center;
+  .cta-col {
+    width: 100%;
     align-items: center;
   }
 
-  .site-logo {
-    font-size: 15px;
-    font-weight: 350;
+  .cta-case-study {
+    white-space: normal;
   }
-  
+
   .right-column {
     padding: 0 16px 24px;
   }
-  
+
   .left-column .links {
     display: none;
   }
-  
+
   .mobile-links {
     display: block;
     width: 100%;
     padding: 0 16px 40px;
     text-align: center;
   }
-  
+
   .mobile-links .links {
     justify-content: center;
     margin: 0;
     padding: 0;
   }
+
+  .popup-form {
+    margin: 16px;
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
-.projects-section {
-	width: 100%;
-	max-width: 1200px;
-	margin: 0 auto;
+@media (max-width: 480px) {
+  .buttons {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .links {
+    gap: 12px;
+  }
 }
 
-.links {
-	display: flex;
-	max-width: 650px;
-	align-items: center;
-	margin-top: 22px;
-	justify-content: flex-start;
-	gap: 16px;
-	text-decoration: underline;
-	flex-wrap: wrap;
-	width: 100%;
-	padding: 0 24px;
-	opacity: 0.6;
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-.links a {
-	font-size: 10px;
-	line-height: 1.3;
+.popup-overlay.open {
+  opacity: 1;
+  visibility: visible;
 }
 
-/* Mobile links container - hidden by default */
-.mobile-links {
+.popup-form {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #1e1e1e;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.15s ease;
+}
+
+.popup-close:hover {
+  background: #f0f0f0;
+}
+
+.form-title {
+  font-size: 28px;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  color: #1e1e1e;
+}
+
+.form-testimonial {
+  border-left: 3px solid #732dff;
+  padding-left: 14px;
+  margin-bottom: 24px;
+}
+
+.form-testimonial p {
+  font-size: 13px;
+  font-style: italic;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.form-testimonial cite {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  color: #1e1e1e;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.form-row .form-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-field {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1e1e;
+  margin-bottom: 6px;
+}
+
+.required {
+  color: #e53e3e;
+}
+
+.optional {
+  font-weight: 400;
+  color: #888;
+  font-size: 13px;
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(30, 30, 30, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1e1e1e;
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  border-color: #732dff;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border: 1px solid rgba(30, 30, 30, 0.2);
+  border-radius: 100px;
+  font-size: 14px;
+  color: #1e1e1e;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  user-select: none;
+}
+
+.chip:hover {
+  border-color: #732dff;
+}
+
+.chip input {
   display: none;
 }
 
-@media (min-width: 768px) {
-	.links {
-		margin-top: 22px;
-		padding: 0;
-	}
+.chip:has(input:checked) {
+  border-color: #732dff;
+  background: rgba(115, 45, 255, 0.08);
 }
 
-@media (max-width: 480px) {
-	.links {
-		gap: 12px;
-	}
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.links a:hover {
-    color: #7a7a7a;
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #1e1e1e;
+  cursor: pointer;
 }
 
-.hero-header {
-	width: 100%;
-	flex-shrink: 0;
+.radio-label input {
+  accent-color: #732dff;
 }
 
-.site-logo {
-	display: block;
-	font-size: 16px;
-	font-weight: 520;
-	line-height: 1.1;
-	letter-spacing: -0.02em;
-	color: #1e1e1e;
-	text-decoration: none;
-	width: fit-content;
-	transition: color 0.15s ease-in-out;
+.form-closing {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
-.site-logo:hover {
-	color: #7a7a7a;
+.form-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #732dff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
 }
 
-.title-cta {
-	display: flex;
-	flex-direction: column;
-	gap: 24px;
-	align-items: center;
-	width: 100%;
-}
-
-.titletext {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	text-align: center;
-	width: 100%;
-	gap: 14px;
-}
-
-.hero-headline {
-	font-size: 28px;
-	font-weight: 550;
-	line-height: 1.3;
-	letter-spacing: -0.02em;
-	text-align: center;
-	text-wrap: pretty;
-	padding-bottom: 0.1em;
-}
-
-.hero-subheadline {
-	font-size: 15px;
-	font-weight: 450;
-	line-height: 1.55;
-	max-width: 36ch;
-	text-align: center;
-}
-
-.buttons {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 12px;
-	flex-wrap: wrap;
-	width: 100%;
-}
-
-@media (max-width: 480px) {
-	.buttons {
-		align-items: center;
-		gap: 8px;
-	}
-}
-
-.cta a {
-	text-decoration: none;
-	align-items: center;
-	gap: 8px;
-}
-
-.cta-icon {
-	width: 16px;
-	height: 16px;
-	margin-left: 8px;
-	flex-shrink: 0;
-}
-
-.cta {
-	display: flex;
-	gap: 6px;
-	justify-content: center;
-	align-items: center;
-	background-color: #732DFF;
-	width: fit-content;
-	color: #ffffff;
-	padding: 6px 16px 6px 6px;
-	border-radius: 100px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: all .15s ease-in-out;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-	font-weight: 500;
-	box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
-}
-
-.cta:hover {
-	color: #ffffff;
-	background-color: #5a1ce0;
-	border-color: rgba(0, 0, 0, 0.05);
-}
-
-.mail-buttons {
-	display: flex;
-	justify-content: center;
-	width: 100%;
-}
-
-.hero-mail-stack {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 0;
-}
-
-.hero-cta-row {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: flex-start;
-	justify-content: center;
-	gap: 12px;
-}
-
-.cta-case-study {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 8px;
-	flex-shrink: 0;
-	background-color: #ffffff;
-	color: #1e1e1e;
-	padding: 8px 14px 8px 16px;
-	border-radius: 100px;
-	border: 1px solid rgba(30, 30, 30, 0.14);
-	text-decoration: none;
-	font-weight: 500;
-	font-size: 14px;
-	line-height: 1.2;
-	white-space: nowrap;
-	transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
-
-.cta-case-study:hover {
-	color: #1e1e1e;
-	background-color: #fafafa;
-	border-color: rgba(30, 30, 30, 0.22);
-}
-
-.cta-case-study:focus-visible {
-	outline: 2px solid #732dff;
-	outline-offset: 2px;
-}
-
-.figma-icon {
-	width: 14px;
-	height: auto;
-	flex-shrink: 0;
-}
-
-.copy-mail-wrap {
-	position: relative;
-	display: inline-block;
-	width: fit-content;
-}
-
-.second-cta {
-	text-decoration: underline;
-	border: none;
-	background-color: transparent;
-	cursor: pointer;
-	padding: 0;
-	text-align: center;
-	font-size: 12px;
-	color: inherit;
-}
-
-.copy-email-label {
-	font-size: 12px;
-}
-
-.copy-tooltip {
-	position: absolute;
-	left: 50%;
-	top: 100%;
-	transform: translateX(-50%);
-	margin-top: 6px;
-	padding: 6px 10px;
-	font-size: 12px;
-	line-height: 1.2;
-	white-space: nowrap;
-	color: #ffffff;
-	background-color: #1e1e1e;
-	border-radius: 6px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-	opacity: 0;
-	visibility: hidden;
-	pointer-events: none;
-	transition: opacity 0.15s ease;
-	z-index: 2;
-}
-
-.copy-tooltip.show {
-	opacity: 1;
-	visibility: visible;
+.form-submit:hover {
+  background-color: #5a1ce0;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.copy-tooltip {
-		transition: none;
-	}
-}
-
-.cta-pfp {
-	width: 28px;
-	height: 28px;
-	border-radius: 100px;
-	flex-shrink: 0;
-	object-fit: cover;
+  .email-tooltip,
+  .popup-overlay {
+    transition: none;
+  }
 }
 </style>

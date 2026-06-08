@@ -7,4 +7,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://deniz.studio',
   integrations: [react()],
+  vite: {
+    optimizeDeps: {
+      exclude: ['react/jsx-dev-runtime'],
+    },
+  },
 });

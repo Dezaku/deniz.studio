@@ -216,10 +216,7 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 
 					<h2 class="form-title">Reach Out</h2>
 
-					<blockquote class="form-testimonial">
-						<p>"Deniz helped turn a very open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his abstract explorations helped us land on something distinctive that I'm really happy with."</p>
-						<cite>&mdash; Adam Smielewski, Scalerail</cite>
-					</blockquote>
+					<p class="form-testimonial">"Deniz helped turn a very open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his abstract explorations helped us land on something distinctive that I'm really happy with."</p><p class="form-attribution">&mdash; Adam Smielewski, Scalerail</p>
 
 					<div class="form-row">
 						<label class="form-field">
@@ -233,15 +230,17 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 						</label>
 					</div>
 
-					<label class="form-field">
-						<span class="field-label">Email <span class="required">*</span></span>
-						<input type="email" name="Email" placeholder="your@email.com" required />
-					</label>
+					<div class="form-row">
+						<label class="form-field">
+							<span class="field-label">Email <span class="required">*</span></span>
+							<input type="email" name="Email" placeholder="your@email.com" required />
+						</label>
 
-					<label class="form-field">
-						<span class="field-label">Describe what you do in one sentence <span class="required">*</span></span>
-						<input type="text" name="Describe what you do" placeholder="We help X do Y by Z" required />
-					</label>
+						<label class="form-field">
+							<span class="field-label">Describe what you do <span class="required">*</span></span>
+							<input type="text" name="Describe what you do" placeholder="We help X do Y by Z" required />
+						</label>
+					</div>
 
 					<div class="form-row">
 						<fieldset class="form-field">
@@ -256,22 +255,23 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 
 						<fieldset class="form-field">
 							<legend class="field-label">Budget <span class="required">*</span></legend>
-							<div class="radio-group">
-								<label class="radio-label"><input type="radio" name="Budget" value="Under $500" required /> Under $500</label>
-								<label class="radio-label"><input type="radio" name="Budget" value="Under $1,000" /> Under $1,000</label>
-								<label class="radio-label"><input type="radio" name="Budget" value="Under $2,500" /> Under $2,500</label>
+							<div class="radio-row">
+								<label class="budget-option"><input type="radio" name="Budget" value="Under $500" required /> &lt;$500</label>
+								<label class="budget-option"><input type="radio" name="Budget" value="Under $1,000" /> &lt;$1k</label>
+								<label class="budget-option"><input type="radio" name="Budget" value="Under $2,500" /> &lt;$2.5k</label>
 							</div>
 						</fieldset>
 					</div>
 
 					<label class="form-field">
 						<span class="field-label">Tell me more <span class="optional">(optional)</span></span>
-						<textarea name="Tell me more" placeholder="Share any details, references, deadlines, or ideas you have in mind&hellip;" rows={4}></textarea>
+						<textarea name="Tell me more" placeholder="Share any details, references, deadlines, or ideas you have in mind&hellip;" rows={2}></textarea>
 					</label>
 
-					<p class="form-closing">I'll reach out to you with further information so we can explore working together. &loz;</p>
-
-					<button type="submit" class="form-submit">Send it &rarr;</button>
+					<div class="form-footer">
+						<p class="form-closing">I'll reach out to you with further information so we can start working together.</p>
+						<button type="submit" class="form-submit">Send &rarr;</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -796,13 +796,24 @@ h1, h2, h3, h4, h5, h6 {
 
   .popup-form {
     margin: 16px;
-    padding: 24px 20px;
+    padding: 20px 16px;
     max-width: 100%;
   }
 
   .form-row {
     flex-direction: column;
     gap: 0;
+  }
+
+  .form-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .form-submit {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -839,11 +850,9 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   background: #ffffff;
   border-radius: 16px;
-  padding: 32px 36px;
-  max-width: 640px;
+  padding: 28px 32px;
+  max-width: 880px;
   width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
@@ -868,7 +877,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .popup-close:hover {
-  background: #f0f0f0;
+  background: #fafafa;
 }
 
 .form-title {
@@ -880,24 +889,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .form-testimonial {
-  border-left: 3px solid #732dff;
-  padding-left: 14px;
-  margin-bottom: 24px;
-}
-
-.form-testimonial p {
-  font-size: 13px;
-  font-style: italic;
-  color: #555;
-  line-height: 1.5;
-  margin-bottom: 4px;
-}
-
-.form-testimonial cite {
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
+  font-size: 14px;
   color: #1e1e1e;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.form-attribution {
+  color: #666;
+  font-size: 13px;
+  margin-top: 2px;
+  margin-bottom: 24px;
 }
 
 .form-row {
@@ -925,12 +927,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .required {
-  color: #e53e3e;
+  color: #732dff;
 }
 
 .optional {
   font-weight: 400;
-  color: #888;
+  color: #666;
   font-size: 13px;
 }
 
@@ -939,7 +941,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-field textarea {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid rgba(30, 30, 30, 0.2);
+  border: 1px solid rgba(30, 30, 30, 0.14);
   border-radius: 8px;
   font-size: 14px;
   color: #1e1e1e;
@@ -964,12 +966,18 @@ h1, h2, h3, h4, h5, h6 {
   gap: 8px;
 }
 
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   padding: 6px 14px;
-  border: 1px solid rgba(30, 30, 30, 0.2);
+  border: 1px solid rgba(30, 30, 30, 0.14);
   border-radius: 100px;
   font-size: 14px;
   color: #1e1e1e;
@@ -991,45 +999,70 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(115, 45, 255, 0.08);
 }
 
-.radio-group {
+.radio-row {
   display: flex;
-  flex-direction: column;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
-.radio-label {
-  display: flex;
+.budget-option {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  padding: 6px 14px;
+  border: 1px solid rgba(30, 30, 30, 0.14);
+  border-radius: 100px;
   font-size: 14px;
   color: #1e1e1e;
   cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  user-select: none;
 }
 
-.radio-label input {
-  accent-color: #732dff;
+.budget-option:hover {
+  border-color: #732dff;
+}
+
+.budget-option input {
+  display: none;
+}
+
+.budget-option:has(input:checked) {
+  border-color: #732dff;
+  background: rgba(115, 45, 255, 0.08);
+}
+
+.form-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
 .form-closing {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 450;
+  color: #1e1e1e;
   line-height: 1.5;
 }
 
 .form-submit {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
   background-color: #732dff;
   color: #ffffff;
-  border: none;
-  padding: 10px 28px;
-  border-radius: 8px;
-  font-size: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
-  transition: background 0.15s ease;
+  box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
 .form-submit:hover {

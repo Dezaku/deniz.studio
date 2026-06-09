@@ -216,7 +216,7 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 
 					<h2 class="form-title">Reach Out</h2>
 
-					<p class="form-testimonial">"Deniz helped turn a very open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his abstract explorations helped us land on something distinctive that I'm really happy with."</p><p class="form-attribution">&mdash; Adam Smielewski, Scalerail</p>
+					<p class="form-testimonial">"Deniz helped turn an open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his explorations helped us land on something distinctive that I'm really happy with."</p><p class="form-attribution">&mdash; Adam Smielewski, Scalerail</p>
 
 					<div class="form-row">
 						<label class="form-field">
@@ -483,8 +483,12 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 8px;
   width: 100%;
+}
+
+.headline-wrap {
+  padding-bottom: 6px;
 }
 
 .headline-wrap {
@@ -700,6 +704,10 @@ h1, h2, h3, h4, h5, h6 {
     gap: 14px;
   }
 
+  .nav-row {
+    padding: 0 4px;
+  }
+
   .nav-link {
     font-size: 14px;
   }
@@ -713,18 +721,19 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .bottom-content {
-    padding-top: 56px;
+    padding-top: 32px;
     margin-top: 0;
+    width: 100%;
   }
 
   .title-cta {
     align-items: stretch;
-    gap: 16px;
+    gap: 24px;
   }
 
   .titletext {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
     gap: 10px;
   }
 
@@ -733,12 +742,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .hero-headline {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.55;
-    letter-spacing: normal;
-    text-align: left;
-    text-wrap: pretty;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    margin-top: 24px;
   }
 
   .subheadline-wrap {
@@ -746,11 +752,9 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .hero-subheadline {
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 1.55;
+    text-align: center;
     max-width: none;
-    text-align: left;
+    line-height: 1.4;
   }
 
   .buttons {
@@ -759,22 +763,24 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   .buttons-inner {
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
+    justify-content: center;
   }
 
   .cta-col {
-    width: 100%;
+    width: auto;
     align-items: center;
   }
 
   .cta-case-study {
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .right-column {
     padding: 0 16px 24px;
+    margin-top: 24px;
   }
 
   .left-column .links {
@@ -794,10 +800,39 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
   }
 
+  .popup-overlay {
+    align-items: center;
+  }
+
   .popup-form {
-    margin: 16px;
-    padding: 20px 16px;
+    margin: 20px;
+    padding: 28px 24px;
     max-width: 100%;
+    border-radius: 16px;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+
+  .popup-close {
+    top: 10px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 26px;
+  }
+
+  .form-title {
+    font-size: 24px;
+    margin-bottom: 14px;
+  }
+
+  .form-testimonial {
+    font-size: 15px;
+  }
+
+  .form-attribution {
+    font-size: 14px;
+    margin-bottom: 20px;
   }
 
   .form-row {
@@ -805,19 +840,68 @@ h1, h2, h3, h4, h5, h6 {
     gap: 0;
   }
 
+  .form-field {
+    margin-bottom: 18px;
+  }
+
+  .field-label {
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .form-field input[type="text"],
+  .form-field input[type="email"],
+  .form-field textarea {
+    padding: 14px 16px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  .form-field textarea {
+    min-height: 90px;
+  }
+
+  .chip,
+  .budget-option {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
   .form-footer {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 14px;
   }
 
   .form-submit {
     width: 100%;
     justify-content: center;
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+
+  .form-closing {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .left-column {
+    padding: 18px 14px;
+  }
+
+  .nav-row {
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-link {
+    font-size: 13px;
+  }
+
   .buttons {
     align-items: center;
     gap: 8px;
@@ -893,6 +977,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #1e1e1e;
   line-height: 1.6;
   margin-bottom: 0;
+  max-width: 680px;
 }
 
 .form-attribution {

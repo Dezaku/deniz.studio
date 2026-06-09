@@ -5,12 +5,12 @@ import januPFP from '../images/janu_pfp.jpg';
 
 const testimonials = [
   {
-    text: `Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with.`,
+    text: `"Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with."`,
     author: "Adam Smielewski - Scalerail",
     img: adamPFP,
   },
   {
-    text: `Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!`,
+    text: `"Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!"`,
     author: "Janu Lingeswaran - Feather Flow",
     img: januPFP,
   },
@@ -151,6 +151,23 @@ const testimonials = [
     justify-content: center;
     gap: 4px;
     width: 100%;
+  }
+
+  @media (max-width: 1023px) {
+    .testimonials-outer {
+      width: auto;
+      margin: 0 auto;
+      gap: 10px;
+      max-width: 474px;
+    }
+
+    .testimonial-text {
+      text-align: center;
+    }
+
+    .testimonial-author-row {
+      justify-content: center;
+    }
   }
 
   .tdot {

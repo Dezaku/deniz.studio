@@ -134,6 +134,7 @@ export default function ReachOutForm() {
 }
 `}</style>
             <div className="form-purple-accent flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
             <DialogTitle className="text-xl font-semibold">Reach Out</DialogTitle>
             <DialogDescription className="italic text-xs leading-relaxed text-muted-foreground">
               &ldquo;Deniz helped turn an open ended logo brief into a clear
@@ -143,6 +144,7 @@ export default function ReachOutForm() {
               <br />
               &mdash; Adam Smielewski, Scalerail
             </DialogDescription>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="hidden" name="_subject" value="New inquiry from deniz.studio" />

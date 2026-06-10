@@ -1,6 +1,7 @@
 ---
 import Projects from '../components/Projects.astro'
 import Testimonials from '../components/Testimonials.astro'
+import ReachOutForm from '../components/ReachOutForm'
 import { Image } from 'astro:assets';
 import figmaSVG from '../../public/figma.svg'
 import mePFP from '../images/me.jpg'
@@ -70,17 +71,6 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 			};
 
 			document.addEventListener('DOMContentLoaded', function() {
-				const reachOutBtn = document.getElementById('reachOutBtn');
-				if (reachOutBtn) {
-					reachOutBtn.addEventListener('click', function() {
-						track('reachout_clicked', {
-							timestamp: new Date().toISOString(),
-							page: window.location.pathname
-						});
-						document.getElementById('popupOverlay').classList.add('open');
-					});
-				}
-
 				const navEmail = document.getElementById('nav-email');
 				if (navEmail) {
 					navEmail.addEventListener('click', function() {
@@ -121,17 +111,6 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 							timestamp: new Date().toISOString(),
 							page: window.location.pathname
 						});
-					});
-				}
-
-				const popupClose = document.getElementById('popupClose');
-				const popupOverlay = document.getElementById('popupOverlay');
-				if (popupClose && popupOverlay) {
-					popupClose.addEventListener('click', function() {
-						popupOverlay.classList.remove('open');
-					});
-					popupOverlay.addEventListener('click', function(e) {
-						if (e.target === popupOverlay) popupOverlay.classList.remove('open');
 					});
 				}
 			});
@@ -206,76 +185,6 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 			</div>
 		</div>
 
-		<div class="popup-overlay" id="popupOverlay">
-			<div class="popup-form">
-				<button class="popup-close" id="popupClose">&times;</button>
-				<form action="https://formsubmit.co/mail@deniz.studio" method="POST">
-					<input type="hidden" name="_subject" value="New enquiry from deniz.studio">
-					<input type="hidden" name="_template" value="table">
-					<input type="text" name="_honey" style="display:none">
-
-					<h2 class="form-title">Reach Out</h2>
-
-					<p class="form-testimonial">"Deniz helped turn an open ended logo brief into a clear visual direction. I came in without a strong idea of what I wanted, and his explorations helped us land on something distinctive that I'm really happy with."</p><p class="form-attribution">&mdash; Adam Smielewski, Scalerail</p>
-
-					<div class="form-row">
-						<label class="form-field">
-							<span class="field-label">Name <span class="required">*</span></span>
-							<input type="text" name="Name" placeholder="Your name" required />
-						</label>
-
-						<label class="form-field">
-							<span class="field-label">Company name <span class="optional">(optional)</span></span>
-							<input type="text" name="Company name" placeholder="Your company or project name" />
-						</label>
-					</div>
-
-					<div class="form-row">
-						<label class="form-field">
-							<span class="field-label">Email <span class="required">*</span></span>
-							<input type="email" name="Email" placeholder="your@email.com" required />
-						</label>
-
-						<label class="form-field">
-							<span class="field-label">Describe what you do <span class="required">*</span></span>
-							<input type="text" name="Describe what you do" placeholder="We help X do Y by Z" required />
-						</label>
-					</div>
-
-					<div class="form-row">
-						<fieldset class="form-field">
-							<legend class="field-label">What are you looking for? <span class="required">*</span></legend>
-							<div class="chip-group">
-								<label class="chip"><input type="checkbox" name="Looking for" value="Branding" /> Branding</label>
-								<label class="chip"><input type="checkbox" name="Looking for" value="Logo" /> Logo</label>
-								<label class="chip"><input type="checkbox" name="Looking for" value="Landing Page" /> Landing Page</label>
-								<label class="chip"><input type="checkbox" name="Looking for" value="Other" /> Other</label>
-							</div>
-						</fieldset>
-
-						<fieldset class="form-field">
-							<legend class="field-label">Budget <span class="required">*</span></legend>
-							<div class="radio-row">
-								<label class="budget-option"><input type="radio" name="Budget" value="Under $500" required /> &lt;$500</label>
-								<label class="budget-option"><input type="radio" name="Budget" value="Under $1,000" /> &lt;$1k</label>
-								<label class="budget-option"><input type="radio" name="Budget" value="Under $2,500" /> &lt;$2.5k</label>
-							</div>
-						</fieldset>
-					</div>
-
-					<label class="form-field">
-						<span class="field-label">Tell me more <span class="optional">(optional)</span></span>
-						<textarea name="Tell me more" placeholder="Share any details, references, deadlines, or ideas you have in mind&hellip;" rows={2}></textarea>
-					</label>
-
-					<div class="form-footer">
-						<p class="form-closing">I'll reach out to you with further information so we can start working together.</p>
-						<button type="submit" class="form-submit">Send &rarr;</button>
-					</div>
-				</form>
-			</div>
-		</div>
-
 		<div class="mobile-links">
 			<div class="links">
 				<a href="/imprint">Imprint</a>
@@ -283,6 +192,8 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 				<a href="https://photo.deniz.studio" target="_blank">Photography</a>
 			</div>
 		</div>
+
+		<ReachOutForm client:load />
 	</body>
 </html>
 
@@ -353,6 +264,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .container {
   width: 100%;
+  max-width: none;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -800,89 +712,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
   }
 
-  .popup-overlay {
-    align-items: center;
-  }
-
-  .popup-form {
-    margin: 20px;
-    padding: 28px 24px;
-    max-width: 100%;
-    border-radius: 16px;
-    max-height: 85vh;
-    overflow-y: auto;
-  }
-
-  .popup-close {
-    top: 10px;
-    right: 12px;
-    width: 40px;
-    height: 40px;
-    font-size: 26px;
-  }
-
-  .form-title {
-    font-size: 24px;
-    margin-bottom: 14px;
-  }
-
-  .form-testimonial {
-    font-size: 15px;
-  }
-
-  .form-attribution {
-    font-size: 14px;
-    margin-bottom: 20px;
-  }
-
-  .form-row {
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .form-field {
-    margin-bottom: 18px;
-  }
-
-  .field-label {
-    font-size: 15px;
-    margin-bottom: 8px;
-  }
-
-  .form-field input[type="text"],
-  .form-field input[type="email"],
-  .form-field textarea {
-    padding: 14px 16px;
-    font-size: 16px;
-    border-radius: 10px;
-  }
-
-  .form-field textarea {
-    min-height: 90px;
-  }
-
-  .chip,
-  .budget-option {
-    padding: 10px 18px;
-    font-size: 15px;
-  }
-
-  .form-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-  }
-
-  .form-submit {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
-    font-size: 16px;
-  }
-
-  .form-closing {
-    font-size: 14px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -912,251 +741,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.popup-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-}
-
-.popup-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-.popup-form {
-  position: relative;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 28px 32px;
-  max-width: 880px;
-  width: 100%;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-}
-
-.popup-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  background: none;
-  border: none;
-  font-size: 28px;
-  color: #1e1e1e;
-  cursor: pointer;
-  line-height: 1;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  transition: background 0.15s ease;
-}
-
-.popup-close:hover {
-  background: #fafafa;
-}
-
-.form-title {
-  font-size: 28px;
-  font-weight: 550;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  color: #1e1e1e;
-}
-
-.form-testimonial {
-  font-size: 14px;
-  color: #1e1e1e;
-  line-height: 1.6;
-  margin-bottom: 0;
-  max-width: 680px;
-}
-
-.form-attribution {
-  color: #666;
-  font-size: 13px;
-  margin-top: 2px;
-  margin-bottom: 24px;
-}
-
-.form-row {
-  display: flex;
-  gap: 16px;
-  width: 100%;
-}
-
-.form-row .form-field {
-  flex: 1;
-  min-width: 0;
-}
-
-.form-field {
-  display: block;
-  margin-bottom: 20px;
-}
-
-.field-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: #1e1e1e;
-  margin-bottom: 6px;
-}
-
-.required {
-  color: #732dff;
-}
-
-.optional {
-  font-weight: 400;
-  color: #666;
-  font-size: 13px;
-}
-
-.form-field input[type="text"],
-.form-field input[type="email"],
-.form-field textarea {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid rgba(30, 30, 30, 0.14);
-  border-radius: 8px;
-  font-size: 14px;
-  color: #1e1e1e;
-  background: #ffffff;
-  transition: border-color 0.15s ease;
-  outline: none;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-  border-color: #732dff;
-}
-
-.form-field textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.chip-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-}
-
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border: 1px solid rgba(30, 30, 30, 0.14);
-  border-radius: 100px;
-  font-size: 14px;
-  color: #1e1e1e;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
-  user-select: none;
-}
-
-.chip:hover {
-  border-color: #732dff;
-}
-
-.chip input {
-  display: none;
-}
-
-.chip:has(input:checked) {
-  border-color: #732dff;
-  background: rgba(115, 45, 255, 0.08);
-}
-
-.radio-row {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.budget-option {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border: 1px solid rgba(30, 30, 30, 0.14);
-  border-radius: 100px;
-  font-size: 14px;
-  color: #1e1e1e;
-  cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease;
-  user-select: none;
-}
-
-.budget-option:hover {
-  border-color: #732dff;
-}
-
-.budget-option input {
-  display: none;
-}
-
-.budget-option:has(input:checked) {
-  border-color: #732dff;
-  background: rgba(115, 45, 255, 0.08);
-}
-
-.form-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 12px;
-  width: 100%;
-}
-
-.form-closing {
-  font-size: 14px;
-  font-weight: 450;
-  color: #1e1e1e;
-  line-height: 1.5;
-}
-
-.form-submit {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background-color: #732dff;
-  color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 6px 16px;
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.5;
-  cursor: pointer;
-  box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-}
-
-.form-submit:hover {
-  background-color: #5a1ce0;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .email-tooltip,
-  .popup-overlay {
+  .email-tooltip {
     transition: none;
   }
 }

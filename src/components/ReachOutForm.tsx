@@ -87,7 +87,7 @@ export default function ReachOutForm() {
       const formData = new FormData(e.currentTarget)
       selectedReasons.forEach((r) => formData.append("looking_for[]", r))
       formData.set("budget", budget)
-      const res = await fetch("https://formsubmit.co/ajax/mail@deniz.studio", {
+      const res = await fetch("https://formsubmit.co/ajax/a4d2b596f5f9df6e3a8bcd5cfacae347", {
         method: "POST",
         body: formData,
       })

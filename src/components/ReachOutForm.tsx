@@ -31,6 +31,7 @@ export default function ReachOutForm() {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [selectedReasons, setSelectedReasons] = useState<string[]>([])
+  const [budget, setBudget] = useState("")
 
   const track = async (eventName: string, properties?: Record<string, unknown>) => {
     if (typeof window === "undefined") return
@@ -61,6 +62,7 @@ export default function ReachOutForm() {
       setSubmitted(false)
       setLoading(false)
       setSelectedReasons([])
+      setBudget("")
     }
   }
 
@@ -76,10 +78,15 @@ export default function ReachOutForm() {
       alert("Please select at least one option for 'What are you looking for?'")
       return
     }
+    if (!budget) {
+      alert("Please select a budget.")
+      return
+    }
     setLoading(true)
     try {
       const formData = new FormData(e.currentTarget)
       selectedReasons.forEach((r) => formData.append("looking_for[]", r))
+      formData.set("budget", budget)
       const res = await fetch("https://formsubmit.co/ajax/mail@deniz.studio", {
         method: "POST",
         body: formData,
@@ -198,8 +205,6 @@ export default function ReachOutForm() {
                         <Checkbox
                           checked={selectedReasons.includes(r)}
                           onCheckedChange={() => toggleReason(r)}
-                          name="looking_for"
-                          value={r}
                         />
                         {r}
                       </label>
@@ -210,7 +215,11 @@ export default function ReachOutForm() {
                   <Label>
                     Budget <span className="text-[#732dff]">*</span>
                   </Label>
-                  <RadioGroup name="budget" className="flex flex-wrap gap-2">
+                  <RadioGroup
+                    value={budget}
+                    onValueChange={(v) => setBudget(v)}
+                    className="flex flex-wrap gap-2"
+                  >
                     {BUDGETS.map((b) => (
                       <label
                         key={b}

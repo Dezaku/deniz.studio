@@ -156,6 +156,7 @@ export default function ReachOutForm() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <input type="hidden" name="_subject" value="New inquiry from deniz.studio" />
               <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_cc" value="mail@deniz.studio" />
               <input type="text" name="_honey" className="hidden" />
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

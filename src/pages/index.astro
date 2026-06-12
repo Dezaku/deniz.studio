@@ -139,6 +139,7 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 						<div class="title-cta">
 							<div class="titletext">
 								<div class="headline-wrap">
+									<div class="limited-badge">Limited availability</div>
 									<h1 class="hero-headline">Good design, better business</h1>
 								</div>
 								<div class="subheadline-wrap">
@@ -397,6 +398,33 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 8px;
   width: 100%;
+}
+
+.limited-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #888;
+}
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.5); }
+  50% { box-shadow: 0 0 0 3px rgba(74, 222, 128, 0); }
+}
+
+.limited-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  animation: pulse-ring 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 .headline-wrap {

@@ -18,9 +18,9 @@ const testimonials = [
 ---
 
 <div class="testimonials-outer" data-testimonials>
-  <div class="testimonials-viewport">
+  <div class="testimonials-viewport" data-viewport>
     {testimonials.map((t, i) => (
-      <div class="testimonial-slide" data-index={i} data-active={i === 0}>
+      <div class="testimonial-slide" data-index={i}>
         <div class={`testimonial-text${i === 0 ? ' testimonial-text--adam' : ''}`} set:html={t.text} />
         <div class="testimonial-author-row">
           <div class="testimonial-pfp-wrap">
@@ -45,35 +45,41 @@ const testimonials = [
 
 <script>
   (function () {
-    const CONFIG = { interval: 7000 };
     const outer = document.querySelector('[data-testimonials]');
     if (!outer) return;
+    const viewport = outer.querySelector('[data-viewport]');
     const slides = outer.querySelectorAll('.testimonial-slide');
     const dots = outer.querySelectorAll('.tdot');
     if (!slides.length) return;
-    let current = 0;
-    let timer = null;
 
-    function goTo(index) {
-      if (index === current) return;
-      slides[current].dataset.active = 'false';
-      dots[current].dataset.active = 'false';
-      current = index;
-      slides[current].dataset.active = 'true';
-      dots[current].dataset.active = 'true';
-      resetTimer();
+    function sync() {
+      var i = Math.round(viewport.scrollLeft / viewport.clientWidth);
+      if (i < 0) i = 0;
+      if (i >= slides.length) i = slides.length - 1;
+      dots.forEach(function (d) {
+        d.dataset.active = parseInt(d.dataset.index) === i ? 'true' : 'false';
+      });
     }
 
-    function advance() { goTo((current + 1) % slides.length); }
-    function resetTimer() { clearInterval(timer); timer = setInterval(advance, CONFIG.interval); }
+    var ticking = false;
+    viewport.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          sync();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
 
     dots.forEach(function (dot) {
       dot.addEventListener('click', function () {
-        goTo(parseInt(dot.dataset.index));
+        var i = parseInt(dot.dataset.index);
+        viewport.scrollTo({ left: i * viewport.clientWidth, behavior: 'smooth' });
       });
     });
 
-    resetTimer();
+    sync();
   })();
 </script>
 
@@ -87,19 +93,20 @@ const testimonials = [
   }
 
   .testimonials-viewport {
-    display: grid;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .testimonials-viewport::-webkit-scrollbar {
+    display: none;
   }
 
   .testimonial-slide {
-    grid-area: 1 / 1;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-  }
-
-  .testimonial-slide[data-active='true'] {
-    opacity: 1;
-    visibility: visible;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
   }
 
   .testimonial-text {

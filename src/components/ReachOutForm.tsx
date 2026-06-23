@@ -17,7 +17,7 @@ import {
 import { CheckIcon } from "lucide-react"
 
 const REASONS = ["Branding", "Logo", "Landing Page", "Other"]
-const BUDGETS = ["$1K-$2.5K", "$2.5K-$5K, "$5k+"]
+const BUDGETS = ["$1K-$2.5K", "$2.5K-$5K", "$5k+"]
 
 declare global {
   interface Window {

@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react"
+﻿import { useState, useEffect, type FormEvent } from "react"
 import "../styles/globals.css"
 
 import { cn } from "@/lib/utils"
@@ -17,7 +17,7 @@ import {
 import { CheckIcon } from "lucide-react"
 
 const REASONS = ["Branding", "Logo", "Landing Page", "Other"]
-const BUDGETS = ["Under $500", "Under $1,000", "Under $2,500"]
+const BUDGETS = ["<$1k", "$1K-$2.5K", "$5k+"]
 
 declare global {
   interface Window {
@@ -144,7 +144,7 @@ export default function ReachOutForm() {
             <div className="form-purple-accent flex flex-col gap-6">
             <div className="flex flex-col gap-2">
             <DialogTitle className="text-xl font-semibold">Reach Out</DialogTitle>
-            <DialogDescription className="italic text-xs leading-relaxed text-muted-foreground">
+            <DialogDescription className="italic text-s leading-relaxed text-muted-foreground">
               &ldquo;Deniz helped turn an open ended logo brief into a clear
               visual direction. I came in without a strong idea of what I
               wanted, and his explorations helped us land on something

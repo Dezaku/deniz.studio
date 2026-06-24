@@ -5,12 +5,12 @@ import januPFP from '../images/janu_pfp.jpg';
 
 const testimonials = [
   {
-    text: `"Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with."`,
+    text: `Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with.`,
     author: "Adam Smielewski - Scalerail",
     img: adamPFP,
   },
   {
-    text: `"Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!"`,
+    text: `Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!`,
     author: "Janu Lingeswaran - Feather Flow",
     img: januPFP,
   },
@@ -104,6 +104,7 @@ const testimonials = [
     align-items: stretch;
     gap: 18px;
     width: 474px;
+    
   }
 
   .testimonials-viewport {
@@ -112,6 +113,7 @@ const testimonials = [
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+ 
   }
 
   .testimonials-viewport::-webkit-scrollbar {
@@ -121,27 +123,32 @@ const testimonials = [
   .testimonial-slide {
     flex: 0 0 100%;
     scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .testimonial-text {
-    font-size: 15px;
-    font-weight: 400;
+    font-size: 16px;
+    font-weight: 450;
     line-height: 1.5;
-    letter-spacing: -0.005em;
+    letter-spacing: 0;
     color: #1e1e1e;
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     text-wrap: pretty;
+    text-align: center;
   }
 
   .testimonial-text :global(strong) {
-    font-weight: 520;
+    font-weight: 550;
   }
 
   .testimonial-author-row {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-top: -1px;
+    margin-top: 10px;
   }
 
   .testimonial-pfp-wrap {
@@ -203,7 +210,7 @@ const testimonials = [
   }
 
   .testimonial-text--adam {
-    letter-spacing: -0.035em;
+    letter-spacing: 0em;
   }
 
   .tdot[data-active='true'] {

@@ -80,6 +80,20 @@ const testimonials = [
     });
 
     sync();
+
+    var current = 0;
+    var autoplay = setInterval(function () {
+      current = (current + 1) % slides.length;
+      viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
+    }, 6000);
+
+    viewport.addEventListener('scroll', function () {
+      clearInterval(autoplay);
+      autoplay = setInterval(function () {
+        current = (current + 1) % slides.length;
+        viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
+      }, 6000);
+    }, { passive: true });
   })();
 </script>
 

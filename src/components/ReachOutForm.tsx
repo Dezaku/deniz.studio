@@ -17,7 +17,7 @@ import {
 import { CheckIcon } from "lucide-react"
 
 const REASONS = ["Branding", "Logo", "Landing Page", "Other"]
-const BUDGETS = ["$1k-$1.5k", "$1.5k-$2.5k", "$2.5k-$5k, $5k-$10k, >$10k"]
+const BUDGETS = ["$1k-$1.5k", "$1.5k-$2.5k", "$2.5k-$5k", "$5k-$10k", ">$10k"]
 
 declare global {
   interface Window {
@@ -242,7 +242,7 @@ export default function ReachOutForm() {
                 <Textarea
                   id="reachout-more"
                   name="tell_me_more"
-                  placeholder="Share any details, references, deadlines, or ideas you have in mind\u2026"
+                  placeholder="Share any details, references, deadlines, or ideas you have in mind"
                 />
               </div>
 

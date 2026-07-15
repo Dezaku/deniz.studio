@@ -45,8 +45,9 @@ export default function Testimonials() {
   // ✅ All properly typed
   const styles: Record<string, CSSProperties> = {
     container: {
-      maxWidth: 650,
+      maxWidth: 490,
       width: "100%",
+      padding: "64px",
     },
     h2: {
       fontSize: "16.875px",

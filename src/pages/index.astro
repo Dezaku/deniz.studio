@@ -3,10 +3,10 @@ import Projects from '../components/Projects.astro'
 import Testimonials from '../components/Testimonials.astro'
 import ReachOutForm from '../components/ReachOutForm'
 import { Image } from 'astro:assets';
-import figmaSVG from '../../public/figma.svg'
+import xSVG from '../../public/x.svg'
 import mePFP from '../images/me.jpg'
 
-const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/deniz.studio---Portfolio?content-scaling=fixed&node-id=19-106&p=f&scaling=min-zoom&starting-point-node-id=19:106&t=ZeVXUQBxl8rfgWIb-0&viewport=-112,304,0.12';
+const xHref = 'https://x.com/denizdoingstuff';
 ---
 
 <html lang="en">
@@ -93,21 +93,11 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 					});
 				}
 
-				const navTwitter = document.getElementById('nav-twitter');
-				if (navTwitter) {
-					navTwitter.addEventListener('click', function() {
+				const xBtn = document.getElementById('xBtn');
+				if (xBtn) {
+					xBtn.addEventListener('click', function() {
 						track('twitter_clicked', {
 							url: 'https://x.com/denizdoingstuff',
-							timestamp: new Date().toISOString(),
-							page: window.location.pathname
-						});
-					});
-				}
-
-				const caseStudyBtn = document.getElementById('caseStudyBtn');
-				if (caseStudyBtn) {
-					caseStudyBtn.addEventListener('click', function() {
-						track('casestudy_clicked', {
 							timestamp: new Date().toISOString(),
 							page: window.location.pathname
 						});
@@ -132,7 +122,6 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
                 								<a class="nav-link" id="nav-cal" href="https://cal.com/denizkumral/intro" target="_blank">cal</a>
 
 								<a class="nav-link" id="nav-telegram" href="https://t.me/denizdoingstuff" target="_blank">telegram</a>
-								<a class="nav-link" id="nav-twitter" href="https://x.com/denizdoingstuff" target="_blank">x</a>
 							</nav>
 						</div>
 					</header>
@@ -142,10 +131,10 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 							<div class="titletext">
 								<div class="headline-wrap">
 									<div class="limited-badge">Available starting mid July</div>
-									<h1 class="hero-headline">Good design, better business</h1>
+									<h1 class="hero-headline">Design partner for early-stage startups</h1>
 								</div>
 								<div class="subheadline-wrap">
-									<p class="hero-subheadline">You bring the vision.<br />I create designs that make you strive.</p>
+									<p class="hero-subheadline">Brand identity and landing pages for founders who need to be taken seriously from day one. <br/> Simple Slack Communication.</p>
 								</div>
 							</div>
 							<div class="buttons">
@@ -158,13 +147,13 @@ const recentCaseStudyHref = 'https://www.figma.com/proto/JLxOhrF9QYq5sWpNBvDvXn/
 									</div>
 									<a
 										class="cta-case-study"
-										href={recentCaseStudyHref}
+										href={xHref}
 										target="_blank"
 										rel="noopener noreferrer"
-										id="caseStudyBtn"
+										id="xBtn"
 									>
-										<Image quality={100} src={figmaSVG} class="figma-icon" alt="" width={54} height={80}/>
-										<span>view recent case study</span>
+										<Image quality={100} src={xSVG} class="x-icon" alt="" width={24} height={24}/>
+										<span>visit my X</span>
 									</a>
 								</div>
 							</div>
@@ -282,9 +271,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .left-column {
-  width: 540px;
+  width:  640px;
   flex-shrink: 0;
-  padding: 28px 22px 28px 44px;
+  padding: 28px 10px 28px 14px;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -412,6 +401,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #888;
+  margin-bottom: 6px
 }
 
 @keyframes pulse-ring {
@@ -443,12 +433,13 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.3;
   letter-spacing: -0.02em;
   text-align: center;
-  text-wrap: pretty;
+  text-wrap: nowrap;
+  white-space: nowrap;
   color: #1e1e1e;
 }
 
 .subheadline-wrap {
-  max-width: 318px;
+  max-width: 360px;
 }
 
 .hero-subheadline {
@@ -473,7 +464,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 8px;
   width: 100%;
 }
@@ -490,7 +481,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 6px;
   width: fit-content;
-  background-color: #732dff;
+  background-color: #1e1e1e;
   color: #ffffff;
   padding: 6px 16px 6px 6px;
   border-radius: 100px;
@@ -501,7 +492,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cta:hover {
-  background-color: #5a1ce0;
+  background-color: #333333;
   border-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -524,6 +515,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  align-self: stretch;
   gap: 8px;
   flex-shrink: 0;
   background-color: #ffffff;
@@ -547,11 +539,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cta-case-study:focus-visible {
-  outline: 2px solid #732dff;
+  outline: 2px solid #1e1e1e;
   outline-offset: 2px;
 }
 
-.figma-icon {
+.x-icon {
   width: 14px;
   height: auto;
   flex-shrink: 0;
@@ -559,7 +551,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .bottom-content {
   flex-shrink: 0;
-  width: fit-content;
+  width: 100%;
   padding-top: 16px;
 }
 
@@ -687,6 +679,8 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 0;
     margin-bottom: 0;
     margin-top: 0;
+    white-space: normal;
+    text-wrap: pretty;
   }
 
   .subheadline-wrap {
@@ -695,7 +689,7 @@ h1, h2, h3, h4, h5, h6 {
 
   .hero-subheadline {
     text-align: center;
-    max-width: none;
+    max-width: 400px;
     line-height: 1.4;
   }
 

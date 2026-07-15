@@ -130,21 +130,21 @@ export default function ReachOutForm() {
             <style>{`
 .form-purple-accent [data-slot="checkbox"][data-checked],
 .form-purple-accent [data-slot="radio-group-item"][data-checked] {
-  background-color: #732dff !important;
-  border-color: #732dff !important;
+  background-color: #1e1e1e !important;
+  border-color: #1e1e1e !important;
 }
 .form-purple-accent [data-slot="checkbox"]:focus-visible,
 .form-purple-accent [data-slot="radio-group-item"]:focus-visible,
 .form-purple-accent [data-slot="input"]:focus-visible,
 .form-purple-accent [data-slot="textarea"]:focus-visible {
-  border-color: #732dff !important;
-  box-shadow: 0 0 0 3px rgba(115, 45, 255, 0.2) !important;
+  border-color: #1e1e1e !important;
+  box-shadow: 0 0 0 3px rgba(30, 30, 30, 0.2) !important;
 }
 `}</style>
             <div className="form-purple-accent flex flex-col gap-6">
             <div className="flex flex-col gap-2">
             <DialogTitle className="text-xl font-semibold">Reach Out</DialogTitle>
-            <DialogDescription className="italic text-xs leading-relaxed text-muted-foreground">
+            <DialogDescription className="italic text-s leading-relaxed text-muted-foreground">
               &ldquo;Deniz helped turn an open ended logo brief into a clear
               visual direction. I came in without a strong idea of what I
               wanted, and his explorations helped us land on something
@@ -162,7 +162,7 @@ export default function ReachOutForm() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="reachout-name">
-                    Name <span className="text-[#732dff]">*</span>
+                    Name <span className="text-[#1e1e1e]">*</span>
                   </Label>
                   <Input id="reachout-name" name="name" placeholder="Your name" required />
                 </div>
@@ -178,14 +178,14 @@ export default function ReachOutForm() {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="reachout-email">
-                    Email <span className="text-[#732dff]">*</span>
+                    Email <span className="text-[#1e1e1e]">*</span>
                   </Label>
                   <Input id="reachout-email" name="email" type="email" placeholder="your@email.com" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="reachout-description">
                     Describe what you do in one sentence{" "}
-                    <span className="text-[#732dff]">*</span>
+                    <span className="text-[#1e1e1e]">*</span>
                   </Label>
                   <Input id="reachout-description" name="description" placeholder="We help X do Y by Z" required />
                 </div>
@@ -195,13 +195,13 @@ export default function ReachOutForm() {
                 <div className="space-y-2">
                   <Label>
                     What are you looking for?{" "}
-                    <span className="text-[#732dff]">*</span>
+                    <span className="text-[#1e1e1e]">*</span>
                   </Label>
                   <div className="flex flex-wrap gap-2">
                     {REASONS.map((r) => (
                       <label
                         key={r}
-                        className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-input px-3 py-1.5 text-sm transition-colors has-[[data-checked]]:border-[#732dff] has-[[data-checked]]:bg-[#732dff]/10"
+                        className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-input px-3 py-1.5 text-sm transition-colors has-[[data-checked]]:border-[#1e1e1e] has-[[data-checked]]:bg-[#1e1e1e]/10"
                       >
                         <Checkbox
                           checked={selectedReasons.includes(r)}
@@ -214,7 +214,7 @@ export default function ReachOutForm() {
                 </div>
                 <div className="space-y-2">
                   <Label>
-                    Budget <span className="text-[#732dff]">*</span>
+                    Budget <span className="text-[#1e1e1e]">*</span>
                   </Label>
                   <RadioGroup
                     value={budget}
@@ -224,7 +224,7 @@ export default function ReachOutForm() {
                     {BUDGETS.map((b) => (
                       <label
                         key={b}
-                        className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-input px-3 py-1.5 text-sm transition-colors has-[[data-checked]]:border-[#732dff] has-[[data-checked]]:bg-[#732dff]/10"
+                        className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-input px-3 py-1.5 text-sm transition-colors has-[[data-checked]]:border-[#1e1e1e] has-[[data-checked]]:bg-[#1e1e1e]/10"
                       >
                         <RadioGroupItem value={b} />
                         {b}
@@ -251,7 +251,7 @@ export default function ReachOutForm() {
                 working together.
               </p>
 
-              <Button type="submit" disabled={loading} className="bg-[#732dff] text-white hover:bg-[#5a1ce0] rounded-full px-5 py-1.5 h-auto border-[rgba(0,0,0,0.05)] shadow-[inset_0_-1px_12.4px_-4px_rgba(255,255,255,0.75)]">
+              <Button type="submit" disabled={loading} className="bg-[#1e1e1e] text-white hover:bg-[#333333] rounded-full px-5 py-1.5 h-auto border-[rgba(0,0,0,0.05)] shadow-[inset_0_-1px_12.4px_-4px_rgba(255,255,255,0.75)]">
                 {loading ? "Sending\u2026" : <><span>Send</span> <span>&rarr;</span></>}
               </Button>
             </form>

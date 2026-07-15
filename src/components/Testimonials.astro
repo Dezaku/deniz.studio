@@ -52,16 +52,42 @@ const testimonials = [
     const dots = outer.querySelectorAll('.tdot');
     if (!slides.length) return;
 
+    var current = 0;
+    var ticking = false;
+
     function sync() {
       var i = Math.round(viewport.scrollLeft / viewport.clientWidth);
       if (i < 0) i = 0;
       if (i >= slides.length) i = slides.length - 1;
+      current = i;
       dots.forEach(function (d) {
         d.dataset.active = parseInt(d.dataset.index) === i ? 'true' : 'false';
       });
     }
 
-    var ticking = false;
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        var i = parseInt(dot.dataset.index);
+        current = i;
+        viewport.scrollTo({ left: i * viewport.clientWidth, behavior: 'smooth' });
+      });
+    });
+
+    sync();
+
+    var autoplay = setInterval(function () {
+      current = (current + 1) % slides.length;
+      viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
+    }, 6000);
+
+    var resetAutoplay = function () {
+      clearInterval(autoplay);
+      autoplay = setInterval(function () {
+        current = (current + 1) % slides.length;
+        viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
+      }, 6000);
+    };
+
     viewport.addEventListener('scroll', function () {
       if (!ticking) {
         window.requestAnimationFrame(function () {
@@ -70,29 +96,7 @@ const testimonials = [
         });
         ticking = true;
       }
-    });
-
-    dots.forEach(function (dot) {
-      dot.addEventListener('click', function () {
-        var i = parseInt(dot.dataset.index);
-        viewport.scrollTo({ left: i * viewport.clientWidth, behavior: 'smooth' });
-      });
-    });
-
-    sync();
-
-    var current = 0;
-    var autoplay = setInterval(function () {
-      current = (current + 1) % slides.length;
-      viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
-    }, 6000);
-
-    viewport.addEventListener('scroll', function () {
-      clearInterval(autoplay);
-      autoplay = setInterval(function () {
-        current = (current + 1) % slides.length;
-        viewport.scrollTo({ left: current * viewport.clientWidth, behavior: 'smooth' });
-      }, 6000);
+      resetAutoplay();
     }, { passive: true });
   })();
 </script>
@@ -101,10 +105,10 @@ const testimonials = [
   .testimonials-outer {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 18px;
-    width: 474px;
-    
+    width: 100%;
+    justify-content: center;
   }
 
   .testimonials-viewport {
@@ -113,7 +117,7 @@ const testimonials = [
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
- 
+    width: 492px;
   }
 
   .testimonials-viewport::-webkit-scrollbar {
@@ -183,10 +187,10 @@ const testimonials = [
 
   @media (max-width: 1023px) {
     .testimonials-outer {
-      width: auto;
+      width: 100%;
       margin: 0 auto;
       gap: 10px;
-      max-width: 474px;
+      max-width: none;
     }
 
     .testimonial-text {

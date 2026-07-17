@@ -1,4 +1,4 @@
-import { useState, useEffect, type FormEvent } from "react"
+﻿import { useState, useEffect, type FormEvent } from "react"
 import "../styles/globals.css"
 
 import { Input } from "@/components/ui/input"
@@ -274,7 +274,7 @@ export default function ReachOutForm() {
         <div className="flex flex-col gap-3.5">
           <p className="text-sm leading-relaxed text-[#737373]">
             I'll reach out to you with further information so we can explore
-            working together.
+            working together. <br /> Most of the time I will just ask you if you would prefer a Slack chat or an Intro call.
           </p>
           <div className="flex items-center gap-1.5">
             <button

@@ -130,7 +130,7 @@ const xHref = 'https://x.com/denizdoingstuff';
 						<div class="title-cta">
 							<div class="titletext">
 								<div class="headline-wrap">
-									<div class="limited-badge">Available starting mid July</div>
+									<div class="limited-badge">1 PROJECT SLOT OPEN</div>
 									<h1 class="hero-headline">Design partner for early-stage startups</h1>
 								</div>
 								<div class="subheadline-wrap">
@@ -158,6 +158,9 @@ const xHref = 'https://x.com/denizdoingstuff';
 								</div>
 							</div>
 						</div>
+						<div class="reachout-slot">
+							<ReachOutForm client:load />
+						</div>
 					</div>
 
 					<div class="bottom-content">
@@ -184,8 +187,6 @@ const xHref = 'https://x.com/denizdoingstuff';
 				<a href="https://photo.deniz.studio" target="_blank">Photography</a>
 			</div>
 		</div>
-
-		<ReachOutForm client:load />
 	</body>
 </html>
 
@@ -382,6 +383,23 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   align-items: center;
   gap: 24px;
+  width: 100%;
+}
+
+/* When the inline form is open, keep the column scroll-safe: never let .main
+   shrink below the form's height (which would clip the top under justify-content:
+   center). It still grows to vertically center the form on tall viewports. */
+.main.reachout-open {
+  flex: 1 0 auto;
+}
+
+.reachout-slot {
+  width: 100%;
+  padding: 0 24px;
+}
+
+.reachout-slot :global(astro-island) {
+  display: block;
   width: 100%;
 }
 
@@ -656,6 +674,10 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: flex-start;
     min-height: 0;
     margin-bottom: 8px;
+  }
+
+  .reachout-slot {
+    padding: 0 4px;
   }
 
   .bottom-content {

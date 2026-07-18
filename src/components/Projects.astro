@@ -72,7 +72,7 @@ const widthsFor = (img) => [...RESPONSIVE_WIDTHS.filter((w) => w < img.width), i
 <div class="projects">
     {sections.map((section) => (
         <section class="project">
-            <div class="project-label">{section.title}</div>
+            <h2 class="project-label">{section.title}</h2>
             <div class="images">
                 {section.items.map((s) => {
                     const alt = s.label ? `${section.title} – ${s.label}` : `${section.title} – ${s.num}`;

@@ -1,0 +1,76 @@
+---
+/**
+ * Shared <head> metadata for every page.
+ *
+ * Props:
+ *   title        — unique per page, shows in Google results + browser tab
+ *   description  — unique per page, ~150 chars, shows under the title in Google
+ *   path         — the page's path ("/", "/de/", "/imprint") used for the canonical URL
+ *   noindex      — set true on thin/utility pages to keep them out of Google
+ *   hreflang     — set true on pages that exist in both languages (adds en/de alternates)
+ *   jsonLd       — optional schema.org structured data object, rendered as JSON-LD
+ */
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  noindex?: boolean;
+  hreflang?: boolean;
+  jsonLd?: Record<string, unknown>;
+}
+
+const { title, description, path, noindex = false, hreflang = false, jsonLd } = Astro.props;
+
+const SITE = 'https://deniz.studio';
+const canonical = `${SITE}${path}`;
+const ogImage = `${SITE}/og-image.png`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+{hreflang && (
+  <>
+    <link rel="alternate" hreflang="en" href={`${SITE}/`} />
+    <link rel="alternate" hreflang="de" href={`${SITE}/de/`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE}/`} />
+  </>
+)}
+
+<link rel="icon" type="image/png" href="/favicon light.png" media="(prefers-color-scheme: light)" />
+<link rel="icon" type="image/png" href="/favicon dark.png" media="(prefers-color-scheme: dark)" />
+
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content="deniz.studio" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+<script is:inline>
+	function updateFavicon() {
+		const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+		const favicon = document.querySelector('link[rel="icon"]');
+		if (favicon && 'href' in favicon) {
+			favicon.href = isDark ? '/favicon dark.png' : '/favicon light.png';
+		}
+	}
+
+	updateFavicon();
+	window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
+</script>

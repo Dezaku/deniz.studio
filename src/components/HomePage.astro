@@ -23,8 +23,6 @@ export interface HomeStrings {
 		imprint: string;
 		privacy: string;
 		photography: string;
-		/** Link to the other language version, e.g. { label: 'Deutsch', href: '/de/' } */
-		lang: { label: string; href: string };
 	};
 }
 
@@ -100,7 +98,6 @@ const xHref = 'https://x.com/denizdoingstuff';
 					<a href="/imprint">{t.footer.imprint}</a>
 					<a href="/privacy">{t.footer.privacy}</a>
 					<a href="https://photo.deniz.studio" target="_blank">{t.footer.photography}</a>
-					<a href={t.footer.lang.href}>{t.footer.lang.label}</a>
 				</div>
 			</div>
 
@@ -117,7 +114,6 @@ const xHref = 'https://x.com/denizdoingstuff';
 		<a href="/imprint">{t.footer.imprint}</a>
 		<a href="/privacy">{t.footer.privacy}</a>
 		<a href="https://photo.deniz.studio" target="_blank">{t.footer.photography}</a>
-		<a href={t.footer.lang.href}>{t.footer.lang.label}</a>
 	</div>
 </div>
 

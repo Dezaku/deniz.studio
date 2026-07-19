@@ -9,19 +9,19 @@ import dominikPFP from '../images/dominik_pfp.jpg';
 // come first in the slider.
 const testimonials = [
   {
-    text: `Deniz turned a generic template into something that <strong>actually looks like us</strong>, and <strong>kept me in the loop the whole way</strong>, no guessing. The dither details <strong>completely won me over</strong>.`,
+    text: `Deniz <strong>gave Notra a real identity</strong>, and <strong>kept me in the loop the whole way</strong>, no guessing. The dither details <strong>completely won me over</strong>.`,
     author: "Dominik Koch - Founder @ usenotra.com",
     img: dominikPFP,
   },
   {
-    text: `Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with.`,
-    author: "Adam Smielewski - Scalerail",
+    text: `Deniz turned an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with.`,
+    author: "Adam Smielewski - Founder @ Scalerail",
     img: adamPFP,
     tightTracking: true,
   },
   {
-    text: `Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!`,
-    author: "Janu Lingeswaran - FeatherFlow",
+    text: `Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>.`,
+    author: "Janu Lingeswaran - Founder @ FeatherFlow",
     img: januPFP,
     tightTracking: true,
   },
@@ -128,10 +128,10 @@ const testimonials = [
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    /* 545px, not 492px: the longer quotes need this much measure to land on
-       three lines like the shortest one. Below ~520px they spill onto a fourth,
-       above ~560px the block widths start drifting apart again. */
-    width: 545px;
+    /* Mirrors the hero headline, which sizes itself via white-space: nowrap and
+       measures 491.9px. Re-measure if the headline text or its font size ever
+       changes, or the two columns silently fall out of alignment. */
+    width: 492px;
   }
 
   .testimonials-viewport::-webkit-scrollbar {
@@ -215,7 +215,7 @@ const testimonials = [
 
     .testimonials-viewport {
       width: 100%;
-      max-width: 545px;
+      max-width: 492px;
       margin: 0 auto;
     }
 

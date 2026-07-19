@@ -19,6 +19,8 @@ export interface HomeStrings {
 	ctaLabel: string;
 	xLabel: string;
 	nav: { email: string; cal: string; telegram: string };
+	/** Closing line under the project column. `link` becomes the Reach Out trigger. */
+	projectsOutro: { before: string; link: string; after: string };
 	footer: {
 		imprint: string;
 		privacy: string;
@@ -69,7 +71,7 @@ const xHref = 'https://x.com/denizdoingstuff';
 					<div class="buttons">
 						<div class="buttons-inner">
 							<div class="cta-col">
-								<button class="cta" id="reachOutBtn">
+								<button class="cta" id="reachOutBtn" data-reachout-location="hero">
 									<Image quality={100} src={mePFP} class="cta-pfp" alt="Deniz" width={200} height={200}/>
 									<div class="cta-label">{t.ctaLabel}</div>
 								</button>
@@ -104,7 +106,7 @@ const xHref = 'https://x.com/denizdoingstuff';
 		</div>
 
 		<div class="right-column">
-			<Projects />
+			<Projects outro={t.projectsOutro} />
 		</div>
 	</div>
 </div>
@@ -626,13 +628,19 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
   width: 100%;
   max-width: 100%;
-  display: block;
+  /* Must repeat the column layout here: this selector outranks the scoped
+     .projects rule in Projects.astro, and a plain `display: block` would kill
+     its gap and stack the projects flush against each other. */
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .projects {
   width: 100%;
   height: 100%;
 }
+
 
 .mobile-links {
   display: none;

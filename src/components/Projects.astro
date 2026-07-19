@@ -67,6 +67,11 @@ outer: for (const section of sections) {
 const RESPONSIVE_WIDTHS = [640, 960, 1280, 1600, 2048, 2880];
 const RESPONSIVE_SIZES = '(max-width: 1023px) calc(100vw - 32px), calc(100vw - 684px)';
 const widthsFor = (img) => [...RESPONSIVE_WIDTHS.filter((w) => w < img.width), img.width];
+
+// Closing line rendered as the last item of the list, so it inherits the same
+// 32px gap that separates the projects instead of hanging below the column's
+// leftover height.
+const { outro } = Astro.props;
 ---
 
 <div class="projects">
@@ -122,6 +127,15 @@ const widthsFor = (img) => [...RESPONSIVE_WIDTHS.filter((w) => w < img.width), i
             </div>
         </section>
     ))}
+    {outro && (
+        <p class="projects-outro">
+            {outro.before}<button
+                type="button"
+                class="projects-outro-link"
+                data-reachout-location="projects_end"
+            >{outro.link}</button>{outro.after}
+        </p>
+    )}
 </div>
 
 <script>
@@ -167,6 +181,39 @@ const widthsFor = (img) => [...RESPONSIVE_WIDTHS.filter((w) => w < img.width), i
     line-height: 20px;
     color: #000000;
     margin-bottom: 6px;
+}
+
+/* Same type as .project-label so the closing line reads as part of the column,
+   but set apart from the last project so it reads as a closing note rather than
+   another project's caption. The projects themselves stay flush. */
+.projects-outro {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #000000;
+    text-wrap: pretty;
+    padding-bottom: 28px;
+}
+
+.projects-outro-link {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.projects-outro-link:hover {
+    color: #7a7a7a;
+}
+
+.projects-outro-link:focus-visible {
+    outline: 2px solid #1e1e1e;
+    outline-offset: 2px;
 }
 
 .images {

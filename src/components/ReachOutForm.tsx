@@ -97,13 +97,17 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
     try { await tracker(eventName, properties) } catch {}
   }
 
-  // Open the inline form when the hero "Reach Out" CTA is clicked.
+  // Open the inline form from any CTA. Each trigger carries its own
+  // data-reachout-location, which rides along on the event so a single funnel
+  // still works while the Events view can break down which CTA pulled.
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       const target = e.target as HTMLElement
-      if (target.closest(".cta")) {
+      const trigger = target.closest<HTMLElement>("[data-reachout-location]")
+      if (trigger) {
         e.preventDefault()
         track("reachout_clicked", {
+          location: trigger.dataset.reachoutLocation ?? "unknown",
           timestamp: new Date().toISOString(),
           page: window.location.pathname,
         })
@@ -121,6 +125,14 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
     document.querySelector<HTMLElement>(".main")?.classList.toggle("reachout-open", open)
     if (open) {
       document.querySelector<HTMLElement>(".left-column")?.scrollTo({ top: 0 })
+      // On the stacked layout the form sits above the project column, so opening
+      // it from the CTA at the bottom of the projects would leave it off-screen.
+      // On desktop the left column is sticky and always visible, so don't scroll.
+      if (window.matchMedia("(max-width: 1023px)").matches) {
+        document
+          .querySelector<HTMLElement>(".reachout-slot")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
     }
   }, [open])
 

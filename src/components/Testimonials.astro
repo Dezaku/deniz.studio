@@ -2,17 +2,28 @@
 import { Image } from 'astro:assets';
 import adamPFP from '../images/adam_pfp.png';
 import januPFP from '../images/janu_pfp.jpg';
+import dominikPFP from '../images/dominik_pfp.jpg';
 
+// `tightTracking` pulls a quote's letter-spacing in by 0.5% of the font size.
+// It belongs to the entry it was tuned for, not to whichever quote happens to
+// come first in the slider.
 const testimonials = [
+  {
+    text: `Deniz turned a generic template into something that <strong>actually looks like us</strong>, and <strong>kept me in the loop the whole way</strong>, no guessing. The dither details <strong>completely won me over</strong>.`,
+    author: "Dominik Koch - Founder @ usenotra.com",
+    img: dominikPFP,
+  },
   {
     text: `Deniz helped turn an open ended logo brief into a <strong>clear visual direction</strong>. I came in without a strong idea of what I wanted, and his explorations <strong>helped us land on something distinctive</strong> that I'm <strong>really happy</strong> with.`,
     author: "Adam Smielewski - Scalerail",
     img: adamPFP,
+    tightTracking: true,
   },
   {
     text: `Deniz helped us fixing our website. He <strong>really thought things through</strong>, made good recommendations and did it all in a very short space of time. <strong>We had a tight deadline and he delivered</strong>. Thank you, Deniz!`,
     author: "Janu Lingeswaran - FeatherFlow",
     img: januPFP,
+    tightTracking: true,
   },
 ];
 ---
@@ -21,7 +32,7 @@ const testimonials = [
   <div class="testimonials-viewport" data-viewport>
     {testimonials.map((t, i) => (
       <div class="testimonial-slide" data-index={i}>
-        <div class={`testimonial-text${i === 0 ? ' testimonial-text--adam' : ''}`} set:html={t.text} />
+        <div class={`testimonial-text${t.tightTracking ? ' testimonial-text--tight' : ''}`} set:html={t.text} />
         <div class="testimonial-author-row">
           <div class="testimonial-pfp-wrap">
             <Image src={t.img} class="testimonial-pfp" alt={t.author} width={28} height={28} />
@@ -117,7 +128,10 @@ const testimonials = [
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    width: 492px;
+    /* 545px, not 492px: the longer quotes need this much measure to land on
+       three lines like the shortest one. Below ~520px they spill onto a fourth,
+       above ~560px the block widths start drifting apart again. */
+    width: 545px;
   }
 
   .testimonials-viewport::-webkit-scrollbar {
@@ -130,7 +144,11 @@ const testimonials = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* Anchor to the bottom, not the middle: the viewport has a fixed height, so
+       centering a shorter quote lifts its avatar and name out of line with the
+       others. Bottom-aligned, the author row stays put and only the text's top
+       edge moves — far less noticeable when the slider advances. */
+    justify-content: flex-end;
   }
 
   .testimonial-text {
@@ -140,6 +158,8 @@ const testimonials = [
     letter-spacing: 0;
     color: #1e1e1e;
     margin-bottom: 0px;
+    /* No max-width here — the measure is set on .testimonials-viewport, which
+       is tuned so every quote lands on three lines. */
     text-wrap: pretty;
     text-align: center;
   }
@@ -195,7 +215,7 @@ const testimonials = [
 
     .testimonials-viewport {
       width: 100%;
-      max-width: 492px;
+      max-width: 545px;
       margin: 0 auto;
     }
 
@@ -219,8 +239,8 @@ const testimonials = [
     transition: background-color 0.3s ease;
   }
 
-  .testimonial-text--adam {
-    letter-spacing: 0em;
+  .testimonial-text--tight {
+    letter-spacing: -0.005em;
   }
 
   .tdot[data-active='true'] {

@@ -19,5 +19,7 @@ export const projects: Project[] = [
   { folder: 'notra', title: 'Notra - AI marketing pipeline' },
   {folder: 'scalerail', title: 'Scalerail - Infrastructure & devtools' },
   {folder: 'luecke', title: 'Luecke - Café (concept)' },
+  {folder: 'misc', title: 'Misc' },
+
 
 ];

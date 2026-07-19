@@ -164,6 +164,17 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
       })
       const data = await res.json()
       if (data.success) {
+        // Deliberately no name/email/message here — analytics must stay free of
+        // personal data. Only the qualifying answers, which is what makes the
+        // event useful (which budgets and services actually convert).
+        track("reachout_submitted", {
+          budget,
+          looking_for: selectedReasons.join(", "),
+          source: source || "not specified",
+          lang,
+          timestamp: new Date().toISOString(),
+          page: window.location.pathname,
+        })
         setSubmitted(true)
       } else {
         alert(s.alertError)

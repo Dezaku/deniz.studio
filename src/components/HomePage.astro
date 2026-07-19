@@ -156,6 +156,17 @@ const xHref = 'https://x.com/denizdoingstuff';
 			});
 		}
 
+		const navCal = document.getElementById('nav-cal');
+		if (navCal) {
+			navCal.addEventListener('click', function() {
+				track('cal_clicked', {
+					url: 'https://cal.com/denizkumral/intro',
+					timestamp: new Date().toISOString(),
+					page: window.location.pathname
+				});
+			});
+		}
+
 		const navTelegram = document.getElementById('nav-telegram');
 		if (navTelegram) {
 			navTelegram.addEventListener('click', function() {

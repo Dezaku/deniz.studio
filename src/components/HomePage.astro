@@ -615,7 +615,11 @@ h1, h2, h3, h4, h5, h6 {
 .right-column {
   flex: 1;
   min-width: 0;
-  padding: 28px 22px 0 22px;
+  /* 26px, not 28px like the left column: the project labels have a taller
+     line-height (20px vs the logo's 17.6px), so an equal padding would drop
+     their text 2.4px below the navbar. This lines up the first label's
+     baseline with the nav instead of its box. */
+  padding: 26px 22px 0 22px;
   margin: 0;
   width: 100%;
   max-width: 100%;

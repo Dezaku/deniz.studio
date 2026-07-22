@@ -251,26 +251,26 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
         <input type="text" name="_honey" className="hidden" />
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="space-y-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="reachout-name">
               {s.nameLabel} <span className="text-[#1e1e1e]">*</span>
             </Label>
             <Input id="reachout-name" name="name" className="h-9.5 px-3" placeholder={s.namePlaceholder} required />
           </div>
-          <div className="space-y-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="reachout-company">{s.companyLabel}</Label>
             <Input id="reachout-company" name="company" className="h-9.5 px-3" placeholder={s.companyPlaceholder} />
           </div>
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="space-y-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="reachout-email">
               {s.emailLabel} <span className="text-[#1e1e1e]">*</span>
             </Label>
             <Input id="reachout-email" name="email" type="email" className="h-9.5 px-3" placeholder="your@email.com" required />
           </div>
-          <div className="space-y-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="reachout-description">
               {s.descriptionLabel} <span className="text-[#1e1e1e]">*</span>
             </Label>
@@ -279,7 +279,7 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
         </div>
 
         <div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2">
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label>
               {s.lookingForLabel} <span className="text-[#1e1e1e]">*</span>
             </Label>
@@ -298,7 +298,7 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
               ))}
             </div>
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label>
               {s.budgetLabel} <span className="text-[#1e1e1e]">*</span>
             </Label>
@@ -321,7 +321,7 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
         </div>
 
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <div className="space-y-1.5">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="reachout-source">{s.sourceLabel}</Label>
             <div className="relative">
               <select
@@ -343,7 +343,7 @@ export default function ReachOutForm({ lang = "en" }: { lang?: "en" | "de" }) {
           </div>
         </div>
 
-        <div className="space-y-1.5">
+        <div className="flex flex-col gap-2">
           <Label htmlFor="reachout-more">
             {s.moreLabel}{" "}
             <span className="font-normal text-muted-foreground">{s.moreOptional}</span>

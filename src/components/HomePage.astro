@@ -9,7 +9,6 @@ import Projects from './Projects.astro'
 import Testimonials from './Testimonials.astro'
 import ReachOutForm from './ReachOutForm'
 import { Image } from 'astro:assets';
-import xSVG from '../../public/x.svg'
 import mePFP from '../images/me.jpg'
 
 export interface HomeStrings {
@@ -17,8 +16,7 @@ export interface HomeStrings {
 	headline: string;
 	subheadline: string;
 	ctaLabel: string;
-	xLabel: string;
-	nav: { email: string; cal: string; telegram: string };
+	nav: { email: string; cal: string; telegram: string; x: string };
 	/** Closing line under the project column. `link` becomes the Reach Out trigger. */
 	projectsOutro: { before: string; link: string; after: string };
 	footer: {
@@ -53,6 +51,8 @@ const xHref = 'https://x.com/denizdoingstuff';
 						<a class="nav-link" id="nav-cal" href="https://cal.com/denizkumral/intro" target="_blank">{t.nav.cal}</a>
 
 						<a class="nav-link" id="nav-telegram" href="https://t.me/denizdoingstuff" target="_blank">{t.nav.telegram}</a>
+
+						<a class="nav-link" id="nav-x" href={xHref} target="_blank" rel="noopener noreferrer">{t.nav.x}</a>
 					</nav>
 				</div>
 			</header>
@@ -74,18 +74,11 @@ const xHref = 'https://x.com/denizdoingstuff';
 								<button class="cta" id="reachOutBtn" data-reachout-location="hero">
 									<Image quality={100} src={mePFP} class="cta-pfp" alt="Deniz" width={200} height={200}/>
 									<div class="cta-label">{t.ctaLabel}</div>
+									<svg class="cta-arrow" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+										<path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+									</svg>
 								</button>
 							</div>
-							<a
-								class="cta-case-study"
-								href={xHref}
-								target="_blank"
-								rel="noopener noreferrer"
-								id="xBtn"
-							>
-								<Image quality={100} src={xSVG} class="x-icon" alt="" width={24} height={24}/>
-								<span>{t.xLabel}</span>
-							</a>
 						</div>
 					</div>
 				</div>
@@ -180,9 +173,9 @@ const xHref = 'https://x.com/denizdoingstuff';
 			});
 		}
 
-		const xBtn = document.getElementById('xBtn');
-		if (xBtn) {
-			xBtn.addEventListener('click', function() {
+		const navX = document.getElementById('nav-x');
+		if (navX) {
+			navX.addEventListener('click', function() {
 				track('twitter_clicked', {
 					url: 'https://x.com/denizdoingstuff',
 					timestamp: new Date().toISOString(),
@@ -514,7 +507,7 @@ h1, h2, h3, h4, h5, h6 {
   width: fit-content;
   background-color: #1e1e1e;
   color: #ffffff;
-  padding: 6px 16px 6px 6px;
+  padding: 6px 10px 6px 6px;
   border-radius: 100px;
   border: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: inset 0px -1px 12.4px -4px rgba(255, 255, 255, 0.75);
@@ -534,50 +527,19 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
 }
 
+.cta-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
 .cta-pfp {
   width: 28px;
   height: 28px;
   border-radius: 100px;
   flex-shrink: 0;
   object-fit: cover;
-}
-
-.cta-case-study {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-  gap: 8px;
-  flex-shrink: 0;
-  background-color: #ffffff;
-  color: #1e1e1e;
-  padding: 8px 14px 8px 16px;
-  border-radius: 100px;
-  border: 1px solid rgba(30, 30, 30, 0.14);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.2;
-  white-space: nowrap;
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, color 0.15s ease-in-out;
-}
-
-.cta-case-study:hover {
-  color: #1e1e1e;
-  background-color: #fafafa;
-  border-color: rgba(30, 30, 30, 0.22);
-}
-
-.cta-case-study:focus-visible {
-  outline: 2px solid #1e1e1e;
-  outline-offset: 2px;
-}
-
-.x-icon {
-  width: 14px;
-  height: auto;
-  flex-shrink: 0;
 }
 
 .bottom-content {
